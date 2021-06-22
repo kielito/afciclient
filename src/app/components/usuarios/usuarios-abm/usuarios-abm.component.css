@@ -1,0 +1,65 @@
+td {
+	border-width: 2px;
+	border-style: dotted;
+    border-color: black;
+    /*padding-top: 10%; para agregar espacio arriba de cada celda*/
+}
+
+table {
+    width: 90%;
+    margin: auto;
+    margin-left: 5%;
+    margin-top: 1%;
+    text-align: center;
+    opacity: 0.9;
+}
+
+body{	
+	width: 100%;
+	float: center;
+    margin-top: 3%;
+    text-align: center;
+}
+
+#botones {
+    margin-top: 2%;
+}
+
+#botones2 {
+    margin-bottom: 1%;
+}
+
+p {
+    text-align: center;
+}
+
+#aviso {    
+    position:absolute;
+    padding-top: 3%;    
+    left: 42%;
+    top: 0;    
+    font-size:15px;
+}
+
+#carga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mensaje {
+    margin-left: 37%;
+}
+
+
+h4 {
+    margin-top: 3%;
+}
+
+#label {
+    justify-content: left;
+    width: 40%;
+    margin: auto;
+    margin-left: 30%;
+    text-align: left;
+}

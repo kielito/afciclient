@@ -1,0 +1,67 @@
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>Registro</h3>
+                </div>
+                <div class="card-body">
+                    <form (submit)="registrar()">
+                        <div class="form-group">
+                            <input type="text" name="usuario" [(ngModel)]="user.usuario" placeholder="Usuario" class="form-control" (focus)="limpiarUsuario()" autofocus>
+                            <div [ngSwitch]="errorUsuario">
+                                <div *ngSwitchCase="1">Debes completar el campo</div>
+                                <div *ngSwitchCase="2">Usuario muy largo</div>
+                                <div *ngSwitchCase="3">Usuario debe ser alfabetico</div>
+                            </div>
+                            <br>
+                            <input type="text" name="nombre" [(ngModel)]="user.nombre" placeholder="Nombre" class="form-control" (focus)="limpiarNombre()">
+                            <div [ngSwitch]="errorNombre">
+                                <div *ngSwitchCase="1">Debes completar el campo</div>
+                                <div *ngSwitchCase="2">Nombre muy largo</div>
+                                <div *ngSwitchCase="3">Nombre debe ser alfabetico</div>
+                            </div>
+                            <br>
+                            <input type="text" name="apellido" [(ngModel)]="user.apellido" placeholder="Apellido" class="form-control" (focus)="limpiarApellido()">
+                            <div [ngSwitch]="errorApellido">
+                                <div *ngSwitchCase="1">Debes completar el campo</div>
+                                <div *ngSwitchCase="2">Apellido muy largo</div>
+                                <div *ngSwitchCase="3">Apellido debe ser alfabetico</div>
+                            </div>
+                            <br>
+                            <input type="password" name="password" [(ngModel)]="user.password" placeholder="Contraseña" class="form-control" (focus)="limpiarPassword()">
+                            <div [ngSwitch]="errrorPassword">
+                                <div *ngSwitchCase="1">Debes completar el campo</div>
+                                <div *ngSwitchCase="2">Contraseña muy larga</div>
+                                <div *ngSwitchCase="3">Contraseña debe ser alfanumerica, admite mayusculas y un mínimo de 6 caracteres, no permite caracteres especiales.</div>
+                            </div>
+                            <br>
+                            <input type="password" name="repassword" [(ngModel)]="user.repassword" placeholder="Repetir Contraseña"class="form-control" (focus)="limpiarRePassword()">
+                            <div [ngSwitch]="errorRePassrword"> <!-- se puede hacer con un ngif -->
+                                <div *ngSwitchCase="1">Las contraseñas deben ser iguales</div>
+                            </div>
+                            <br>
+                            <input type="email" name="email" [(ngModel)]="user.email" placeholder="Email"class="form-control" (focus)="limpiarEmail()">
+                            <div [ngSwitch]="errorEmail">
+                                <div *ngSwitchCase="1">Debes completar el campo</div>
+                                <div *ngSwitchCase="2">Email muy largo</div>
+                                <div *ngSwitchCase="3">Email debe ser nombre@dominio.algo .</div>
+                            </div>
+                            <br>                          
+                            <select name="perfil" [(ngModel)]="user.perfil" placeholder="Perfil"class="form-control">
+                                <option value="" selected>Seleccionar</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Usuario">Usuario</option>
+                            </select>
+                            <div [ngSwitch]="errorPerfil"> <!-- se puede hacer con un ngif -->
+                                <div *ngSwitchCase="1">Debe seleccionar un Perfil</div>
+                            </div>
+                            <br>
+                            <button class="btn btn-success btn-block" (click)="verificarForm()">Enviar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

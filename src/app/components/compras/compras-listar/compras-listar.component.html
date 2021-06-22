@@ -1,0 +1,31 @@
+<body>
+        <table class="table table-dark table-striped table-hover">
+            <thead class="thead-light">
+                <th >Id</th>
+                <th >Fecha</th>
+                <th >Calle</th> 
+                <th >Altura</th>
+                <th >Total</th>                
+            </thead>
+                <tbody *ngIf="pedidos.length > 0; else fila">
+                    <tr *ngFor=" let pedido of pedidos; let i= index">
+                        <td>{{pedido.id}}</td>
+                        <td>{{pedido.fecha}}</td>
+                        <td>{{pedido.calle}}</td>
+                        <td>{{pedido.altura}}</td>
+                        <td>$ {{pedido.total}}</td>
+                    </tr>
+                </tbody>
+            <ng-template #fila>
+                <tbody>
+                    <tr>
+                        <td colspan="4">No hay mas filas</td>
+                    </tr>
+                </tbody>
+            </ng-template>                
+      </table>
+
+        <button class="btn btn-success mr-3" id="izquierdo" routerLink="../../articulos/listar">Comprar</button>
+        <button class="btn btn-danger" id="derecho" (click)="logout()">Salir</button>
+    
+</body>

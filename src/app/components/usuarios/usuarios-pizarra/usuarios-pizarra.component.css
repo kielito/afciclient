@@ -1,0 +1,36 @@
+h1 {
+	font-family: 'Times New Roman';
+	font-size: 50px;
+	font-style: italic;
+	font-weight: bold;
+}
+
+#div2{
+	background-color: rgb(200,200,200);
+	width: 50%;
+	float: right;
+}
+
+#div3{
+	background-color: rgb(219,150,150);
+	width: 50%;
+	/*float: left; /*Interrumpe el flujo normal (lo pone al lado de otro)*/
+}
+
+.grande{
+	font-size:130px;
+}
+
+body {
+	background-color: #01ccf8;
+	font-family: Verdana;
+}
+
+#fondo{
+	background-color: #01f8a6;
+	position: fixed; /*se queda en la posicion fija donde aparece*/ /*aboslut el objeto se desplaza con la pantalla*/
+	bottom: 0px; /*tiene q ver con la pantalla, se desplaza 0px (Abajo de todo)*/
+	width: 100%;
+	text-align: center;
+}
+

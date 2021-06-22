@@ -1,0 +1,49 @@
+body{	
+	width: 100%;
+	float: center;
+    margin-top: 3%;
+    text-align: center;
+}
+
+td {
+	border-width: 2px;
+	border-style: dotted;
+    border-color: black;    
+    /*padding-top: 10%; para agregar espacio arriba de cada celda*/
+}
+
+table {
+    width: 98%;
+    margin: auto;
+    text-align: center;
+    opacity: 0.9;
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+#botones {
+    margin-top: 2%;
+    margin-bottom: 1%;
+}
+
+#carga {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mensaje {
+    margin-left: 37%;
+}
+
+#aviso {    
+    position:absolute;
+    padding-top: 4%;    
+    left: 40%;
+    top: 0;    
+    font-size:15px;
+}
+
+h4 {
+    margin-top: 3%;
+}

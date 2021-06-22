@@ -1,0 +1,36 @@
+<body>
+    <table class="table table-light table-striped table-hover">
+        <thead class="thead-dark">
+            <th>Tipo Documento</th>
+            <th>Número Documento</th>
+            <th>Razón Social</th>
+            <th>Email</th>
+            <th>Dirección</th>
+            <th>Localidad</th>
+            <th>Provincia</th>
+            <th>Código Postal</th>
+            <th>Descripción</th>
+        </thead>
+        <tbody *ngIf="proveedores.length > 0; else fila">
+            <tr *ngFor=" let proveedor of proveedores; let i= index">
+                <td>{{proveedor.TipoDocumento}}</td>
+                <td>{{proveedor.NumeroDocumento}}</td>
+                <td>{{proveedor.RazonSocial}}</td>
+                <td>{{proveedor.Email}}</td>                
+                <td>{{proveedor.Direccion}}</td>  
+                <td>{{proveedor.Localidad}}</td>
+                <td>{{proveedor.Provincia}}</td>
+                <td>{{proveedor.CodigoPostal}}</td>
+                <td>{{proveedor.Descripcion}}</td>
+            </tr>
+        </tbody>
+        <ng-template #fila>
+            <tbody>
+                <tr>
+                    <td colspan="4">No hay mas filas</td>
+                </tr>
+            </tbody>
+        </ng-template>
+    </table>    
+    <button class="btn btn-dark mr-3" routerLink="../../usuarios/home">Volver</button>    
+</body>

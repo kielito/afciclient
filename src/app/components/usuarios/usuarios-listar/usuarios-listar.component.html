@@ -1,0 +1,30 @@
+<body> 
+    <table class="table table-light table-striped table-hover">
+        <thead class="thead-dark">
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>        
+            <th>Email</th>
+            <th>Perfil</th>
+        </thead>
+        <tbody *ngIf="usuarios.length > 0; else fila">
+            <tr *ngFor=" let usuario of usuarios">
+                <td>{{usuario.Id}}</td>
+                <td>{{usuario.Usuario}}</td>
+                <td>{{usuario.Nombre}}</td>
+                <td>{{usuario.Apellido}}</td>
+                <td>{{usuario.Email}}</td>
+                <td>{{usuario.Perfil}}</td>                
+            </tr>
+        </tbody>
+        <ng-template #fila>
+            <tbody>
+                <tr>
+                    <td colspan="4">No hay mas filas</td>
+                </tr>
+            </tbody>
+        </ng-template>
+    </table>    
+    <button class="btn btn-dark mr-3" id="botones" routerLink="../../usuarios/home">Volver</button>        
+</body>

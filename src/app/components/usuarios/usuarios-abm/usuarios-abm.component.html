@@ -1,0 +1,105 @@
+<body>
+    <tbody *ngIf="confirmacion">
+        <div id="aviso">
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Usuario {{mensaje}} correctamente!</strong> 
+        </div>
+        </div>
+    </tbody>    
+    <table class="table table-light table-striped table-hover">
+        <thead class="thead-dark">
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Apellido</th>        
+            <th>Email</th>
+            <th>Perfil</th>
+            <th>Accion</th>
+        </thead>
+        <tbody *ngIf="usuarios.length > 0; else fila">
+            <tr *ngFor=" let usuario of usuarios">
+                <td>{{usuario.Id}}</td>
+                <td><input class="form-control" type="text" name="usuario" [(ngModel)]="usuario.Usuario"></td>
+                <td><input class="form-control" type="text" name="nombre" [(ngModel)]="usuario.Nombre"></td>
+                <td><input class="form-control" type="text" name="apellido" [(ngModel)]="usuario.Apellido"></td>
+                <td><input class="form-control" type="email" name="email" [(ngModel)]="usuario.Email"></td>
+                <td><select name="perfil" [(ngModel)]="usuario.Perfil" placeholder="Perfil"class="form-control">                    
+                    <option value="Admin">Admin</option>
+                    <option value="Usuario">Usuario</option>
+                </select>
+                </td>
+                <td><button class="btn btn-info mr-3" type="submit" (click)="editar(usuario)">Editar</button>
+                    <button class="btn btn-danger" type="submit" (click)="eliminar(usuario)">Eliminar</button></td>
+            </tr>
+        </tbody>
+        <ng-template #fila>
+            <tbody>
+                <tr>
+                    <td colspan="4">No hay mas filas</td>
+                </tr>
+            </tbody>
+        </ng-template>
+    </table>
+    <a class="btn btn-success mr-3" id="botones" href="#agregar" data-toggle="collapse">Agregar</a>
+    <div class="card-body" id="label">              
+        <div id="agregar" class="collapse">
+            <h4>Nuevo Usuario</h4>
+            <form (submit)="registrar()">
+                <div class="form-group">
+                    <label>Usuario</label>
+                    <input type="text" class="form-control" name="usuario" [(ngModel)]="user.usuario" placeholder="Usuario">                    
+                    <div [ngSwitch]="errorUsuario">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Usuario muy largo</div>
+                        <div *ngSwitchCase="3">Usuario debe ser alfabetico</div>
+                    </div>
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="Nombre" [(ngModel)]="user.nombre" placeholder="Nombre">
+                    <div [ngSwitch]="errorNombre">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Nombre muy largo</div>
+                        <div *ngSwitchCase="3">Nombre debe ser alfabetico</div>
+                    </div>
+                    <label>Apellido</label>
+                    <input type="text" class="form-control" name="apellido" [(ngModel)]="user.apellido" placeholder="Apellido">
+                    <div [ngSwitch]="errorApellido">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Apellido muy largo</div>
+                        <div *ngSwitchCase="3">Apellido debe ser alfabetico</div>
+                    </div>
+                    <label>Password</label>
+                    <input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Contraseña">
+                    <div [ngSwitch]="errrorPassword">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Contraseña muy larga</div>
+                        <div *ngSwitchCase="3">Contraseña debe ser alfanumerica, admite mayusculas y un mínimo de 6 caracteres, no permite caracteres especiales.</div>
+                    </div>
+                    <label>RePassword</label>
+                    <input type="password" class="form-control" name="repassword" [(ngModel)]="user.repassword" placeholder="Repetir Contraseña">
+                    <div [ngSwitch]="errorRePassrword">
+                        <div *ngSwitchCase="1">Las contraseñas deben ser iguales</div>
+                    </div>
+                    <label>Email</label>
+                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email">
+                    <div [ngSwitch]="errorEmail">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Email muy largo</div>
+                        <div *ngSwitchCase="3">Email debe ser nombre@dominio.algo .</div>
+                    </div>
+                    <label>Perfil</label>                    
+                    <select class="form-control" name="perfil" [(ngModel)]="user.perfil">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Usuario">Usuario</option>
+                    </select>
+                    <div [ngSwitch]="errorPerfil">
+                        <div *ngSwitchCase="1">Debe seleccionar un Perfil</div>
+                    </div>              
+                </div>                
+                <button class="btn btn-primary" (click)="verificarForm()">Guardar</button>                
+            </form>        
+        </div>    
+    </div>
+    <button class="btn btn-dark mr-3" id="botones2" routerLink="../../usuarios/home">Volver</button>        
+</body>

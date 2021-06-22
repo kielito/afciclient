@@ -1,0 +1,45 @@
+<body>
+<tbody *ngIf="error">
+    <div id="aviso">
+    <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Error: verifique los datos ingresados!</strong> 
+    </div>
+    </div>
+</tbody>
+<div class="container p-4">
+    <div class="row">
+        <div class="col-md-4 mx-auto">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h3>SignIn</h3>
+                </div>                
+                <div *ngIf="!reintentar" class="card-body">
+                    <form (submit)="ingresar()">
+                        <div class="form-group">
+                            <input type="text" name="usuario" [(ngModel)]="user.Usuario" placeholder="Usuario" class="form-control" autofocus>
+                            <div [ngSwitch]="errorUsuario">
+                                <div *ngSwitchCase="1">Debes ingresar un usuario</div>
+                            </div>
+                            <input type="email" name="email" [(ngModel)]="user.Email" placeholder="Email" class="form-control">
+                            <div [ngSwitch]="errorEmail">
+                                <div *ngSwitchCase="1">Debes ingresar un Email</div>
+                            </div>
+                            <input type="password" name="password" [(ngModel)]="user.Password" placeholder="Contraseña" class="form-control">  
+                            <div [ngSwitch]="errorPassword">
+                                <div *ngSwitchCase="1">Debes ingresar la clave</div>
+                            </div>                          
+                            <button type="submit" class="btn btn-success btn-block" (click)="verificarForm()">Ingresar</button>
+                        </div>
+                    </form>
+                </div>
+                <div *ngIf="reintentar" class="card-body">
+                    {{mensaje}} <br>
+                    <a class="btn btn-info" (click)=recargarForm()>Reintentar</a> 
+                    <a class="btn btn-danger" routerLink="../principal">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>
+</body>

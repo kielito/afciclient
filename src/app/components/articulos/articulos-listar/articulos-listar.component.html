@@ -1,0 +1,30 @@
+<body>
+    <table class="table table-light table-striped table-hover">
+        <thead class="thead-dark">
+            <th>Codigo Artículo</th>
+            <th>Descripción</th>
+            <th>Proveedor</th>
+            <th>Stock Mínimo</th>
+            <th>Stock Actual</th>
+            <th>Precio</th>
+        </thead>
+        <tbody *ngIf="articulos.length > 0; else fila">
+            <tr *ngFor=" let articulo of articulos; let i= index">
+                <td>{{articulo.CodigoProducto}}</td>
+                <td>{{articulo.Descripcion}}</td>
+                <td>{{articulo.RazonSocial}}</td>
+                <td>{{articulo.StockMinimo}}</td>                
+                <td>{{articulo.StockActual}}</td>  
+                <td>$ {{articulo.PrecioVenta}}</td>  
+            </tr>
+        </tbody>
+        <ng-template #fila>
+            <tbody>
+                <tr>
+                    <td colspan="4">No hay mas filas</td>
+                </tr>
+            </tbody>
+        </ng-template>
+    </table>    
+    <button class="btn btn-dark mr-3" routerLink="../../usuarios/home">Volver</button>    
+</body>

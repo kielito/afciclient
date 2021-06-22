@@ -1,0 +1,33 @@
+<body>    
+    <form action="/product/fileupload" method="POST" style="float:left;" enctype="multipart/form-data">
+        <input type="file" name="file" id="">
+        <input type="submit" value="Cargar">        
+    </form>
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-md-4 mx-auto">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h3>Bienvenido {{usuario.Nombre}} - {{usuario.Perfil}}</h3>
+                        </div>
+                        <div *ngIf="admin" class="card-body">
+                            <div class="card-body">                        
+                                <a class="btn btn-info btn-block" routerLink="../../usuarios/abmusuarios">ABM Usuarios</a>                        
+                                <a class="btn btn-info btn-block" routerLink="../../articulos/abmarticulos">ABM Artículos</a>
+                                <a class="btn btn-info btn-block" routerLink="../../proveedores/abmproveedores">ABM Proveedores</a>
+                                <a class="btn btn-danger btn-block" id="logout" (click)="logout()">Salir</a>
+                            </div>
+                        </div>
+                        <div *ngIf="!admin" class="card-body">
+                            <div class="card-body">                        
+                                <a class="btn btn-info btn-block" routerLink="../../usuarios/listar">Listar Usuarios</a>                        
+                                <a class="btn btn-info btn-block" routerLink="../../articulos/listar">Listar Artículos</a>
+                                <a class="btn btn-info btn-block" routerLink="../../proveedores/listar">Listar Proveedores</a>
+                                <a class="btn btn-danger btn-block" id="logout" (click)="logout()">Salir</a>
+                            </div>
+                        </div>   
+                    </div>
+                </div>
+            </div>
+        </div>    
+</body>
