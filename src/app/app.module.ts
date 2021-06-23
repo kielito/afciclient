@@ -20,6 +20,7 @@ import { UsuariosAbmComponent } from './components/usuarios/usuarios-abm/usuario
 import { ProveedoresListarComponent } from './components/proveedores/proveedores-listar/proveedores-listar.component';
 import { ProveedoresAbmComponent } from './components/proveedores/proveedores-abm/proveedores-abm.component';
 import { UsuariosActivarComponent } from './components/usuarios/usuarios-activar/usuarios-activar.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({ //Clase
@@ -33,7 +34,7 @@ import { UsuariosActivarComponent } from './components/usuarios/usuarios-activar
     UsuariosHomeComponent,        
     ArticulosListarComponent, 
     ArticulosABMComponent, 
-    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent
+    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent, FilterPipe
   ],
   imports: [ //Seccion
     BrowserModule,
