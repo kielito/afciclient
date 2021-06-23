@@ -1,8 +1,11 @@
 <body>    
-    <form action="/product/fileupload" method="POST" style="float:left;" enctype="multipart/form-data">
-        <input type="file" name="file" id="">
-        <input type="submit" value="Cargar">        
+    <form (submit)="cargarArchivo()">
+        <input type="file" name="files" (change)="SeleccionArchivo($event)">
+        <button class="btn btn-primary btn-block">Guardar </button>       
     </form>
+
+
+
         <div class="container p-4">
             <div class="row">
                 <div class="col-md-4 mx-auto">

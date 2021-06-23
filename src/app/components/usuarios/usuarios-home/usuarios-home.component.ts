@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from '../../../services/usuarios.service';
 
+//Para subir archivos
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
+
+
 @Component({
   selector: 'app-usuarios-home',
   templateUrl: './usuarios-home.component.html',
@@ -8,6 +14,8 @@ import { UsuariosService } from '../../../services/usuarios.service';
 })
 export class UsuariosHomeComponent implements OnInit {
 
+  archivoSeleccionado:any;
+  file:any;
   admin:Boolean=false;
   usuario:any = [];
 
@@ -21,6 +29,32 @@ export class UsuariosHomeComponent implements OnInit {
 		  this.admin = true;
     else
 		  this.admin = false;      
+  }
+
+
+  SeleccionArchivo(event: any): void{
+    if(event.target.files && event.target.files[0]){
+      this.file = <File>event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.archivoSeleccionado = reader.result;
+      reader.readAsDataURL(this.file);   
+      
+      console.log(this.file);
+    }
+  }
+
+  cargarArchivo(){
+    console.log(this.file);
+    this.usuariosService.cargar(this.file).subscribe(
+      res => {
+        console.log(res);
+                
+      },        
+        err => {
+          console.log(err);         
+      }
+    )
   }
 
   logout(){

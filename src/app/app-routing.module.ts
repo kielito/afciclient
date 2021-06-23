@@ -21,7 +21,7 @@ const routes: Routes = [
 		pathMatch: 'full'
 	},
 
-	//USUARIOS
+	//USUARIOS	
 	{
 		path: 'usuarios/listar',
 		component: UsuariosListarComponent,		
