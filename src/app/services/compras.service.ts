@@ -1,11 +1,3 @@
-/*******************************************************************************
-*		DNI:33.111.151
-*		APELLIDO/S: GOMEZ
-*		NOMBRE/S: LEANDRO
-*		PARCIAL: 2
-*		FECHA: 17/06/2021
-*******************************************************************************/
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Compra } from '../models/compraModel';
@@ -15,7 +7,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ComprasService {
-  API_URI = 'http://localhost:3000/compra'; //variable local a la clase con la ruta
+  //API_URI = 'http://localhost:3000/compra'; //variable local a la clase con la ruta
+  API_URI = 'https://dstpwebpeceraserver.herokuapp.com/compra';
 
   constructor(private http: HttpClient, private router:Router) { }
 
