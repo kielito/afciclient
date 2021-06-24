@@ -1,0 +1,28 @@
+<body> 
+    <table class="table table-light table-striped table-hover">
+        <thead class="thead-dark">
+            <th>Id</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Comentario</th>        
+            <th>Imagen</th>
+        </thead>
+        <tbody *ngIf="comentarios.length > 0; else fila">
+            <tr *ngFor=" let comentario of comentarios">
+                <td>{{comentario.Id}}</td>
+                <td>{{comentario.Usuario}}</td>
+                <td>{{comentario.Fecha}}</td>
+                <td>{{comentario.Comentario}}</td>
+                <td>{{comentario.Imagen}}</td>            
+            </tr>
+        </tbody>
+        <ng-template #fila>
+            <tbody>
+                <tr>
+                    <td colspan="5">No hay mas filas</td>
+                </tr>
+            </tbody>
+        </ng-template>
+    </table>    
+    <button class="btn btn-dark mr-3" id="botones" routerLink="../../usuarios/home">Volver</button>        
+</body>

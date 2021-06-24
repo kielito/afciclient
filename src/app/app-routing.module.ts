@@ -13,6 +13,8 @@ import { ArticulosListarComponent} from "./components/articulos/articulos-listar
 import { ArticulosABMComponent} from "./components/articulos/articulos-abm/articulos-abm.component";
 import { ProveedoresListarComponent} from "./components/proveedores/proveedores-listar/proveedores-listar.component";
 import { ProveedoresAbmComponent } from "./components/proveedores/proveedores-abm/proveedores-abm.component";
+import { ComentariosListarComponent} from "./components/comentarios/comentarios-listar/comentarios-listar.component";
+import { ComentariosAbmComponent } from "./components/comentarios/comentarios-abm/comentarios-abm.component";
 
 const routes: Routes = [	
 	{//ruta por default: "/"
@@ -76,7 +78,20 @@ const routes: Routes = [
 		path: 'proveedores/abmproveedores',
 		component: ProveedoresAbmComponent,
 		canActivate: [AuthGuard, AdminGuard]
+	},
+
+	//COMENTARIOS
+	{
+		path: 'comentarios/listar',
+		component: ComentariosListarComponent,
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'comentarios/abmcomentarios',
+		component: ComentariosAbmComponent,
+		canActivate: [AuthGuard, AdminGuard]
 	}
+	
 ];
 
 @NgModule({
