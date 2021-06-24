@@ -20,10 +20,10 @@ import { UsuariosAbmComponent } from './components/usuarios/usuarios-abm/usuario
 import { ProveedoresListarComponent } from './components/proveedores/proveedores-listar/proveedores-listar.component';
 import { ProveedoresAbmComponent } from './components/proveedores/proveedores-abm/proveedores-abm.component';
 import { UsuariosActivarComponent } from './components/usuarios/usuarios-activar/usuarios-activar.component';
-
 import { ComentariosListarComponent } from './components/comentarios/comentarios-listar/comentarios-listar.component';
 import { ComentariosAbmComponent } from './components/comentarios/comentarios-abm/comentarios-abm.component';
-
+import { FilterPipe } from './pipes/filter.pipe';
+import { FilterprodPipe } from './pipes/filterprod.pipe';
 
 @NgModule({ //Clase
   declarations: [
@@ -36,7 +36,7 @@ import { ComentariosAbmComponent } from './components/comentarios/comentarios-ab
     UsuariosHomeComponent,        
     ArticulosListarComponent, 
     ArticulosABMComponent, 
-    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent, ComentariosListarComponent, ComentariosAbmComponent
+    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent, ComentariosListarComponent, ComentariosAbmComponent, FilterPipe, FilterprodPipe
   ],
   imports: [ //Seccion
     BrowserModule,

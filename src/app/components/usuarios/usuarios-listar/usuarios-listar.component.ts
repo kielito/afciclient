@@ -13,6 +13,8 @@ export class UsuariosListarComponent implements OnInit {
 
   constructor(private usuariosService:UsuariosService) { }
 
+  filterUsuarios = '';
+
   ngOnInit(){ //Metodo: se ejecuta cuando se instancia el objeto de esta clase
 		this.usuariosService.logued$.emit();
     this.usuariosService.listarUsuarios().subscribe( //se utiliza subscribe ya que el metodo trabaja con la base de datos

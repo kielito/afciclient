@@ -3,7 +3,8 @@
         <div class="row">
             <div class="col">
                 <div class="form-group">
-                    <input class="form-control" id="myInput" type="text" placeholder="Buscar...">
+                    <input type="text" class="form-control" name="filterUsuarios" placeholder="Buscar usuario..."
+                        [(ngModel)]="filterUsuarios">
                 </div>
             </div>
         </div>
@@ -17,8 +18,8 @@
             <th>Email</th>
             <th>Perfil</th>
         </thead>
-        <tbody id="myTable" *ngIf="usuarios.length > 0; else fila">
-            <tr *ngFor=" let usuario of usuarios; let i= index">
+        <tbody *ngIf="usuarios.length > 0; else fila">
+            <tr *ngFor=" let usuario of usuarios | filter:filterUsuarios">
                 <td>{{usuario.Id}}</td>
                 <td>{{usuario.Usuario}}</td>
                 <td>{{usuario.Nombre}}</td>

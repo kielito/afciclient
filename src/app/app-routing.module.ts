@@ -80,7 +80,7 @@ const routes: Routes = [
 		component: ProveedoresAbmComponent,
 		canActivate: [AuthGuard, AdminGuard]
 	},
-	//PROVEEDORES
+	//COMENTARIOS
 	{
 		path: 'comentarios/listar',
 		component: ComentariosListarComponent,
