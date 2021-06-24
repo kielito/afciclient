@@ -23,6 +23,9 @@ table {
 
 #botones {
     margin-top: 2%;
+}
+
+#botones2 {
     margin-bottom: 1%;
 }
 
@@ -37,13 +40,22 @@ table {
 }
 
 #aviso {    
-    position:absolute;
+    position:fixed;
     padding-top: 4%;    
     left: 40%;
     top: 0;    
     font-size:15px;
+    z-index: 2;
 }
 
 h4 {
     margin-top: 3%;
+}
+
+#label {
+    justify-content: left;
+    width: 40%;
+    margin: auto;
+    margin-left: 30%;
+    text-align: left;
 }

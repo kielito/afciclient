@@ -10,11 +10,20 @@ import {Router} from '@angular/router';
 })
 export class ProveedoresAbmComponent implements OnInit {
 
-  datos= {  nombre:"", precio:"" };
+  proveedor= {  TipoDocumento:"", NumeroDocumento:"", RazonSocial:"", Email:"", Direccion:"", Localidad:"", Provincia:"", CodigoPostal:"", Descripcion:"" };
   precio = 1;
   proveedores:any = [];
-  errorNombre=0;
-  errorPrecio=0;
+
+  errorTipoDocumento=0;
+  errorNumeroDocumento=0;
+  errorRazonSocial=0;
+  errorDireccion=0;
+  errorLocalidad=0;
+  errorEmail=0;
+  errorProvincia=0;
+  errorCodigoPostal=0;
+  errorDescripcion=0;
+
   confirmacion:boolean = false;
   error:boolean = false;
   mensaje = "";
@@ -34,23 +43,25 @@ export class ProveedoresAbmComponent implements OnInit {
   }
 
   registrar(){		
-    this.proveedoresService.agregarProveedor(this.datos).subscribe(
+    this.proveedoresService.agregarProveedor(this.proveedor).subscribe(
       res => {
-        let id: any=res;
+        this.ngOnInit(); 
         this.mensaje = "agregado";
-        this.confirmacion=true;
+        this.confirmacion=true;        
+        this.recargarForm();
       },
       err => {
         this.error=true;
-        console.log(err.error.message);
+        this.mensaje = err.error.message;
       }
     )
-    this.limpiarDatos();
-    this.ngOnInit(); 
+    
   }
 
   editar(proveedor:any){
-    if(!this.verificarForm(proveedor))
+    this.confirmacion=false; 
+    this.error=false;
+    if(this.verificarForm())
     {
       this.error=true;
       console.log('Verifique los datos');
@@ -58,13 +69,13 @@ export class ProveedoresAbmComponent implements OnInit {
     {
       this.proveedoresService.editarProveedor(proveedor).subscribe(
         res => {
-          console.log(res);
+          this.ngOnInit();
           this.mensaje = "actualizado";
           this.confirmacion=true;
         },
         err => {
           this.error=true;
-          console.log(err.error.message);
+          this.mensaje = err.error.message;
         }
       )
     }
@@ -72,50 +83,149 @@ export class ProveedoresAbmComponent implements OnInit {
   }
 
   eliminar(proveedor:any){
-    this.proveedoresService.eliminarProveedor(proveedor).subscribe(
+    this.confirmacion=false;
+    this.error=false;
+    this.proveedoresService.eliminarProveedor(proveedor.Id).subscribe(
       res => {
-        console.log(res);
         this.mensaje = "eliminado";
-          this.confirmacion=true;
+        this.confirmacion=true;
       },
       err => {
-        console.log(err.error.message);
+        this.error=true;
+        this.mensaje = err.error.message;
       }
     )
     this.ngOnInit();    
   }
-
-  verificarForm(proveedor:any):boolean{    
-    this.errorNombre=this.verificarNombre(proveedor.nombre);
-    this.errorPrecio=this.verificarPrecio(proveedor.precio);
+  
+  verificarForm():boolean{    
+    this.errorTipoDocumento=this.verificarTipoDocumento(this.proveedor.TipoDocumento);
+    this.errorNumeroDocumento=this.verificarNumeroDocumento(this.proveedor.NumeroDocumento);
+    this.errorRazonSocial=this.verificarRazonSocial(this.proveedor.RazonSocial);
+    this.errorDireccion=this.verificarDireccion(this.proveedor.Email);
+    this.errorLocalidad=this.verificarLocalidad(this.proveedor.Direccion);
+    this.errorEmail=this.verificarEmail(this.proveedor.Localidad);
+    this.errorProvincia=this.verificarProvincia(this.proveedor.Provincia);
+    this.errorCodigoPostal=this.verificarCodigoPostal(this.proveedor.CodigoPostal);
+    this.errorDescripcion=this.verificarDescripcion(this.proveedor.Descripcion);
     
-    if((this.errorNombre+this.errorPrecio)>0){
+    if((this.errorTipoDocumento+this.errorNumeroDocumento+this.errorRazonSocial+this.errorDireccion+this.errorLocalidad+this.errorEmail+this.errorProvincia+this.errorCodigoPostal+this.errorDescripcion)>0){
       this.error=true;      
       return false;
     }
     return true;
   }
 
-  verificarNombre(nombre:string):number {
-    if(nombre.length==0)
+  verificarTipoDocumento(TipoDocumento:string):number {
+    if(TipoDocumento.length==0)
       return 1;
-    else if(nombre.replace(' ','') === "")
+    else if(TipoDocumento.replace(' ','') === "")
     {
-      this.datos.nombre = "";
+      this.proveedor.TipoDocumento = "";
       return 2;
     } else
     return 0;
   }
   
-  verificarPrecio(precio:any): number {
-    if(precio.length==0)
+  verificarNumeroDocumento(NumeroDocumento:any): number {
+    if(NumeroDocumento.length==0)
       return 1;
+    else if(NumeroDocumento.replace(' ','') === "")
+    { 
+      this.proveedor.NumeroDocumento = "";
+      return 2;
+    } else
+    return 0;
+  } 
+
+  verificarRazonSocial(RazonSocial:any) {
+    if(RazonSocial.length==0)
+      return 1;
+    else if(RazonSocial.replace(' ','') === "")
+    { 
+      this.proveedor.RazonSocial = "";
+      return 2;
+    } else
     return 0;
   }
 
-  limpiarDatos() {      
-      this.datos.nombre = "";
-      this.datos.precio = "";
-    }
+  verificarDireccion(Email:any) {
+    if(Email.length==0)
+      return 1;
+    else if(Email.replace(' ','') === "")
+    { 
+      this.proveedor.Email = "";
+      return 2;
+    } else
+    return 0;
+  }
+
+  verificarLocalidad(Direccion:any) {
+    if(Direccion.length==0)
+      return 1;
+    else if(Direccion.replace(' ','') === "")
+    { 
+      this.proveedor.Direccion = "";
+      return 2;
+    } else
+    return 0;
+  }
+
+  verificarEmail(Localidad:any) {
+    if(Localidad.length==0)
+      return 1;
+    else if(Localidad.replace(' ','') === "")
+    { 
+      this.proveedor.Localidad = "";
+      return 2;
+    } else
+    return 0;
+  }
+
+  verificarProvincia(Provincia:any) {
+    if(Provincia.length==0)
+      return 1;
+    else if(Provincia.replace(' ','') === "")
+    { 
+      this.proveedor.Provincia = "";
+      return 2;
+    } else
+    return 0;
+  }
+
+  verificarCodigoPostal(CodigoPostal:any) {
+    if(CodigoPostal.length==0)
+      return 1;
+    else if(CodigoPostal.replace(' ','') === "")
+    { 
+      this.proveedor.CodigoPostal = "";
+      return 2;
+    } else
+    return 0;
+  }
+
+  verificarDescripcion(Descripcion:any) {
+    if(Descripcion.length==0)
+      return 1;
+    else if(Descripcion.replace(' ','') === "")
+    { 
+      this.proveedor.Descripcion = "";
+      return 2;
+    } else
+    return 0;
+  }
+
+  recargarForm(){    
+    this.proveedor.CodigoPostal="";
+    this.proveedor.Descripcion="";
+    this.proveedor.Direccion="";
+    this.proveedor.Email="";
+    this.proveedor.Localidad="";
+    this.proveedor.NumeroDocumento="";
+    this.proveedor.Provincia="";
+    this.proveedor.RazonSocial="";
+    this.proveedor.TipoDocumento="";
+	  this.mensaje="";
+  }
 
 }

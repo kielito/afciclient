@@ -76,5 +76,7 @@ export class UsuariosService{
 		const fd = new FormData();
 		fd.append('image', archivo);
 		return this.http.post(`${this.API_URI}/archivos`,fd);
-	}	
+	}
+
+	
 }

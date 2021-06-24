@@ -20,9 +20,6 @@ import { UsuariosAbmComponent } from './components/usuarios/usuarios-abm/usuario
 import { ProveedoresListarComponent } from './components/proveedores/proveedores-listar/proveedores-listar.component';
 import { ProveedoresAbmComponent } from './components/proveedores/proveedores-abm/proveedores-abm.component';
 import { UsuariosActivarComponent } from './components/usuarios/usuarios-activar/usuarios-activar.component';
-import { ComentariosAbmComponent } from './components/comentarios/comentarios-abm/comentarios-abm.component';
-import { ComentariosListarComponent } from './components/comentarios/comentarios-listar/comentarios-listar.component';
-import { ComentariosService } from './services/comentarios.service';
 
 
 @NgModule({ //Clase
@@ -36,7 +33,7 @@ import { ComentariosService } from './services/comentarios.service';
     UsuariosHomeComponent,        
     ArticulosListarComponent, 
     ArticulosABMComponent, 
-    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent, ComentariosAbmComponent, ComentariosListarComponent
+    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent
   ],
   imports: [ //Seccion
     BrowserModule,
@@ -46,7 +43,6 @@ import { ComentariosService } from './services/comentarios.service';
   ],
   providers: [
     UsuariosService,
-    ComentariosService,
     AuthGuard,
     AdminGuard,
     {

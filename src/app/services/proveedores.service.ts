@@ -24,7 +24,7 @@ export class ProveedoresService {
 		return this.http.post(`${this.API_URI}/editar`, proveedor);
 	}
 
-	eliminarProveedor(proveedor:any){ //METODO
-		return this.http.post(`${this.API_URI}/eliminar`, proveedor);
+	eliminarProveedor(id:string){
+		return this.http.delete(`${this.API_URI}/eliminar/${id}`);
 	}
 }

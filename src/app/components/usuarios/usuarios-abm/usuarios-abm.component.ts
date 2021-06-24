@@ -39,8 +39,7 @@ export class UsuariosAbmComponent implements OnInit {
 
   registrar(){		
     this.usuariosService.registrar(this.user).subscribe(
-      res => {
-        let id: any=res;
+      res => {        
         this.mensaje = "agregado";
         this.confirmacion=true;
         this.recargarForm();
@@ -55,7 +54,8 @@ export class UsuariosAbmComponent implements OnInit {
   }
 
   editar(usuario:any){
-    this.confirmacion=false; 
+    this.confirmacion=false;
+    this.error=false;
     if(!this.verificarEdit(usuario))
     {
       this.error=true;
@@ -78,14 +78,15 @@ export class UsuariosAbmComponent implements OnInit {
 
   eliminar(usuario:any){
     this.confirmacion=false;
+    this.error=false;
     this.usuariosService.eliminarUsuario(usuario.Id).subscribe(
       res => {
-        console.log(res);
         this.mensaje = "eliminado";
         this.confirmacion=true;
       },
       err => {
-        console.log(err.error.message);
+        this.error=true;
+        this.mensaje = err.error.message;
       }
     )
     this.ngOnInit();
@@ -180,7 +181,7 @@ export class UsuariosAbmComponent implements OnInit {
   }
   
   verificarEmail(email:any): number {
-    const patron=/^[a-z0-9\_]{1,30}@[a-z0-9]{1,10}\.[a-z]{2,3}/;
+    const patron=/^[a-z0-9\_\_.]{1,30}@[a-z0-9]{1,10}\.[a-z]{2,3}/;
     if(email.length==0)
       return 1;
     if(email.length>50)
