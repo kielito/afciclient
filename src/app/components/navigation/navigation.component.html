@@ -37,15 +37,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" routerLink="usuarios/abmusuarios">ABM</a>
                           </div>
-                    </li>                    
-                    <li class="nav-item dropdown">                        
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Artículos</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" routerLink="articulos/listar">Listar</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" routerLink="articulos/abmarticulos">ABM</a>
-                          </div>
-                    </li>                    
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Proveedores</a>
                         <div class="dropdown-menu">
@@ -54,14 +46,17 @@
                             <a class="dropdown-item" routerLink="proveedores/abmproveedores">ABM</a>
                           </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Comentarios</a>
+                    <li class="nav-item dropdown">                        
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Artículos</a>
                         <div class="dropdown-menu">
-                            <a class="dropdown-item" routerLink="comentarios/listar">Listar</a>
+                            <a class="dropdown-item" routerLink="articulos/listar">Listar</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" routerLink="comentarios/abmcomentarios">ABM</a>
+                            <a class="dropdown-item" routerLink="articulos/abmarticulos">ABM</a>
                           </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="comentario/listar">Listar comentarios</a>
+                    </li>     
                     <li class="nav-item mr-aut">
                         <a class="nav-link" id="logout" (click)="logout()">Cerrar sesión</a>
                     </li>            
@@ -76,21 +71,16 @@
                     </li> 
                     <li class="nav-item">
                         <a class="nav-link" routerLink="usuarios/listar">Listar usuarios</a>
-                    </li>                   
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="articulos/listar">Listar artículos</a>
-                    </li>
+                    </li>                    
                     <li class="nav-item">
                         <a class="nav-link" routerLink="proveedores/listar">Listar proveedores</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="articulos/listar">Listar artículos</a>
                     </li>  
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Comentarios</a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" routerLink="comentarios/listar">Listar</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" routerLink="comentarios/abmcomentarios">ABM</a>
-                          </div>
-                    </li>             
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="comentario/listar">Listar comentarios</a>
+                    </li>                  
                     <li class="nav-item">
                         <a class="nav-link" id="logout" (click)="logout()">Cerrar sesión</a>
                     </li>            

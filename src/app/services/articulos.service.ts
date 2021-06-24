@@ -24,8 +24,7 @@ export class ArticulosService {
 		return this.http.post(`${this.API_URI}/editar`, articulo);
 	}
 
-	eliminarArticulo(articulo:any){ //METODO
-		return this.http.post(`${this.API_URI}/eliminar`, articulo);
+	eliminarArticulo(id:string){ //METODO
+		return this.http.delete(`${this.API_URI}/eliminar/${id}`);
 	}
-
 }

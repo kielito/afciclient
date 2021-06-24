@@ -1,11 +1,3 @@
-/*******************************************************************************
-*		DNI:33.111.151
-*		APELLIDO/S: GOMEZ
-*		NOMBRE/S: LEANDRO
-*		PARCIAL: 2
-*		FECHA: 17/06/2021
-*******************************************************************************/
-
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Compra } from '../models/compraModel';

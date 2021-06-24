@@ -82,12 +82,12 @@ const routes: Routes = [
 	},
 	//COMENTARIOS
 	{
-		path: 'comentarios/listar',
+		path: 'comentario/listar',
 		component: ComentariosListarComponent,
 		canActivate: [AuthGuard]
 	},
 	{
-		path: 'comentarios/abmcomentarios',
+		path: 'comentario/abmcomentarios',
 		component: ComentariosAbmComponent,
 		canActivate: [AuthGuard, AdminGuard]
 	}

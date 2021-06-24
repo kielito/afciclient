@@ -17,24 +17,31 @@
     </tbody>
     <table class="table table-dark table-striped table-hover">
         <thead class="thead-light">
-            <th>Codigo Artículo</th>
+            <th>Id</th>
+            <th>Codigo Artículo</th>            
             <th>Descripción</th>
-            <th>Proveedor</th>
-            <th>Stock Mínimo</th>
+            <th>Proveedor</th>            
             <th>Stock Actual</th>
             <th>Precio</th>
             <th>Acción</th>
         </thead>        
         <tbody *ngIf="articulos.length > 0; else fila">            
-            <tr *ngFor=" let articulo of articulos; let i= index">               
-                <td>{{articulo.CodigoProducto}}</td>
-                <td>{{articulo.Descripcion}}</td>
-                <td>{{articulo.RazonSocial}}</td>
-                <td><input class="form-control" type="number" min="0" name="stockminimo" [(ngModel)]="articulo.StockMinimo"></td>
+            <tr *ngFor=" let articulo of articulos; let i= index">
+                <td><input class="form-control" type="number" name="id" [(ngModel)]="articulo.Id" readonly></td>
+                <td><input class="form-control" type="text" min="0" name="codigoproducto" [(ngModel)]="articulo.CodigoProducto"></td>                
+                <td><input class="form-control" type="text" min="0" name="descripcion" [(ngModel)]="articulo.Descripcion"></td>                
+                <td>
+                    <select class="form-control" name="razonsocial" [(ngModel)]="articulo.RazonSocial" placeholder="Razón Social">
+                        
+                        <option value="{{proveedor.RazonSocial}}" *ngFor="let proveedor of proveedores">
+                            {{proveedor.RazonSocial}}
+                        </option>                        
+                    </select>
+                </td>
                 <td><input class="form-control" type="number" min="0" name="stockactual" [(ngModel)]="articulo.StockActual"></td>
                 <td><input class="form-control" type="number" step="0.01" name="precioventa" [(ngModel)]="articulo.PrecioVenta"></td>                
                 <td><button class="btn btn-info mr-3" type="submit" (click)="editar(articulo)">Editar</button>
-                    <button class="btn btn-danger" type="submit" (click)="eliminar(articulo)">Eliminar</button></td>                
+                    <button class="btn btn-danger" type="submit" (click)="eliminar(articulo)">Eliminar</button></td>
             </tr>        
         </tbody>    
         <ng-template #fila>
@@ -45,24 +52,58 @@
             </tbody>
         </ng-template>
     </table>
-    <h4>Agregar Producto</h4>
-        <form (submit)="registrar()">
-            <div class="input-group" id="carga">  
-                Descripción:
-                <input type="text" class="mr-3" name="nombre" [(ngModel)]="datos.nombre" placeholder="Ingrese la Descripción">  
-                Precio $:               
-                <input type="number" min="1" step="0.01" name="precio" [(ngModel)]="datos.precio" placeholder="Ingrese el Precio">
-                <button class="btn btn-success ml-3 btn-sm" (click)="verificarForm(datos)">Agregar</button>                
-            </div>  
-        </form>
-        <div class="input-group">  
-            <div [ngSwitch]="errorNombre" id="mensaje">
-                <div *ngSwitchCase="1" class="mr-5">Debes ingresar la Descripción</div>
-                <div *ngSwitchCase="2" class="mr-5">La Descripción no puede estar vacía</div>
-            </div>
-            <div [ngSwitch]="errorPrecio">
-                <div *ngSwitchCase="1">Debes ingresar el Precio</div>
-            </div>
-        </div>
-    <button class="btn btn-dark mr-3" id="botones" routerLink="../../usuarios/home">Volver</button>    
+
+    <a class="btn btn-success mr-3" id="botones" href="#agregar" data-toggle="collapse">Agregar</a>
+    <div class="card-body" id="label">              
+        <div id="agregar" class="collapse">
+            <h4>Nuevo Producto</h4>
+            <form (submit)="registrar()">
+                <div class="form-group">
+                    <label>Codigo Producto</label>
+                    <input type="text" class="form-control" name="CodigoProducto" [(ngModel)]="articulo.CodigoProducto" placeholder="Codigo Producto">                    
+                    <div [ngSwitch]="errorCodigoProducto">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">CodigoProducto muy largo</div>
+                        <div *ngSwitchCase="3">CodigoProducto debe ser alfanumerico</div>
+                    </div>
+                    <label>Descripcion</label>
+                    <input type="text" class="form-control" name="Descripcion" [(ngModel)]="articulo.Descripcion" placeholder="Descripción">
+                    <div [ngSwitch]="errorDescripcion">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Descripcion Documento muy largo</div>
+                        <div *ngSwitchCase="3">Descripcion Documento debe ser numérico</div>
+                    </div>
+                    <label>Razón Social</label>
+                    <select class="form-control" name="RazonSocial" [(ngModel)]="articulo.RazonSocial" placeholder="Razón Social">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="{{proveedor.RazonSocial}}" *ngFor="let proveedor of proveedores">
+                            {{proveedor.RazonSocial}}
+                        </option>                        
+                    </select>
+                    <div [ngSwitch]="errorRazonSocial">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Razon Social muy largo</div>
+                        <div *ngSwitchCase="3">Razon Social debe ser alfabetico</div>
+                    </div>                    
+                    <label>Stock Actual</label>
+                    <input type="text" class="form-control" name="StockActual" [(ngModel)]="articulo.StockActual" placeholder="StockActual">
+                    <div [ngSwitch]="errorStockActual">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">StockActual muy largo</div>
+                        <div *ngSwitchCase="3">StockActual debe ser numérico</div>
+                    </div>                  
+                    <label>Precio Venta</label>
+                    <input type="number" class="form-control" step="0.01" name="PrecioVenta" [(ngModel)]="articulo.PrecioVenta" placeholder="Precio Venta">
+                    <div [ngSwitch]="errorPrecioVenta">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Descripcion muy largo</div>
+                        <div *ngSwitchCase="3">Descripcion debe ser alfabetico</div>
+                    </div>
+                    
+                </div>                
+                <button class="btn btn-primary" (click)="verificarForm()">Guardar</button>                
+            </form>        
+        </div>    
+    </div>
+    <button class="btn btn-dark mr-3" id="botones2" routerLink="../../usuarios/home">Volver</button>    
 </body>

@@ -54,17 +54,16 @@ export class ProveedoresAbmComponent implements OnInit {
         this.error=true;
         this.mensaje = err.error.message;
       }
-    )
-    
+    )    
   }
 
   editar(proveedor:any){
     this.confirmacion=false; 
     this.error=false;
+
     if(this.verificarForm())
     {
       this.error=true;
-      console.log('Verifique los datos');
     } else
     {
       this.proveedoresService.editarProveedor(proveedor).subscribe(
@@ -109,6 +108,10 @@ export class ProveedoresAbmComponent implements OnInit {
     this.errorCodigoPostal=this.verificarCodigoPostal(this.proveedor.CodigoPostal);
     this.errorDescripcion=this.verificarDescripcion(this.proveedor.Descripcion);
     
+    console.log(this.proveedor.TipoDocumento);
+    console.log(this.proveedor.NumeroDocumento);
+    console.log(this.errorRazonSocial);
+
     if((this.errorTipoDocumento+this.errorNumeroDocumento+this.errorRazonSocial+this.errorDireccion+this.errorLocalidad+this.errorEmail+this.errorProvincia+this.errorCodigoPostal+this.errorDescripcion)>0){
       this.error=true;      
       return false;
@@ -138,7 +141,7 @@ export class ProveedoresAbmComponent implements OnInit {
     return 0;
   } 
 
-  verificarRazonSocial(RazonSocial:any) {
+  verificarRazonSocial(RazonSocial:any): number {
     if(RazonSocial.length==0)
       return 1;
     else if(RazonSocial.replace(' ','') === "")
@@ -149,7 +152,7 @@ export class ProveedoresAbmComponent implements OnInit {
     return 0;
   }
 
-  verificarDireccion(Email:any) {
+  verificarDireccion(Email:any): number {
     if(Email.length==0)
       return 1;
     else if(Email.replace(' ','') === "")
@@ -160,7 +163,7 @@ export class ProveedoresAbmComponent implements OnInit {
     return 0;
   }
 
-  verificarLocalidad(Direccion:any) {
+  verificarLocalidad(Direccion:any): number {
     if(Direccion.length==0)
       return 1;
     else if(Direccion.replace(' ','') === "")
@@ -171,7 +174,7 @@ export class ProveedoresAbmComponent implements OnInit {
     return 0;
   }
 
-  verificarEmail(Localidad:any) {
+  verificarEmail(Localidad:any): number {
     if(Localidad.length==0)
       return 1;
     else if(Localidad.replace(' ','') === "")
@@ -182,7 +185,7 @@ export class ProveedoresAbmComponent implements OnInit {
     return 0;
   }
 
-  verificarProvincia(Provincia:any) {
+  verificarProvincia(Provincia:any): number {
     if(Provincia.length==0)
       return 1;
     else if(Provincia.replace(' ','') === "")
@@ -193,7 +196,7 @@ export class ProveedoresAbmComponent implements OnInit {
     return 0;
   }
 
-  verificarCodigoPostal(CodigoPostal:any) {
+  verificarCodigoPostal(CodigoPostal:any): number {
     if(CodigoPostal.length==0)
       return 1;
     else if(CodigoPostal.replace(' ','') === "")
@@ -204,7 +207,7 @@ export class ProveedoresAbmComponent implements OnInit {
     return 0;
   }
 
-  verificarDescripcion(Descripcion:any) {
+  verificarDescripcion(Descripcion:any): number {
     if(Descripcion.length==0)
       return 1;
     else if(Descripcion.replace(' ','') === "")

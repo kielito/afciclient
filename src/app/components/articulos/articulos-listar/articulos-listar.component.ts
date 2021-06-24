@@ -13,13 +13,12 @@ export class ArticulosListarComponent implements OnInit {
     
   constructor(private articulosService:ArticulosService, private usuariosService: UsuariosService) { }
 
-  filterProductos = '';
-
   ngOnInit(): void {
     this.usuariosService.logued$.emit();
     this.articulosService.listarArticulo().subscribe(
       res => {
-        this.articulos = res;
+        let result:any=res;        
+        this.articulos = result.articulo;
       },
 			err => console.log(err)
 		)

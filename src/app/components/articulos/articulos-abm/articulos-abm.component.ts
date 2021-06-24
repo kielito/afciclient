@@ -10,11 +10,18 @@ import {Router} from '@angular/router';
 })
 export class ArticulosABMComponent implements OnInit {
 
-  datos= {  nombre:"", precio:"" };
-  precio = 1;
+  articulo= { CodigoProducto: "", Descripcion: "", RazonSocial: "", StockActual: "", PrecioVenta: "" };
+  proveedor= { Id: "", RazonSocial: "" };
+  
   articulos:any = [];
-  errorNombre=0;
-  errorPrecio=0;
+  proveedores:any = [];
+
+  errorCodigoProducto=0;
+  errorDescripcion=0;
+  errorRazonSocial=0;
+  errorStockActual=0;
+  errorPrecioVenta=0;  
+
   confirmacion:boolean = false;
   error:boolean = false;
   mensaje = "";
@@ -25,7 +32,9 @@ export class ArticulosABMComponent implements OnInit {
     this.usuariosService.logued$.emit();
     this.articulosService.listarArticulo().subscribe(
       res => {
-        this.articulos = res;        
+        let result:any=res;
+        this.articulos = result.articulo;
+        this.proveedores = result.proveedor;
       },
 			err => console.log(err)
 		)
@@ -33,89 +42,154 @@ export class ArticulosABMComponent implements OnInit {
     this.error=false;   
   }
 
-  registrar(){		
-    this.articulosService.agregarArticulo(this.datos).subscribe(
+  registrar(){    
+    this.articulosService.agregarArticulo(this.articulo).subscribe(
       res => {
-        let id: any=res;
+        this.ngOnInit();
         this.mensaje = "agregado";
         this.confirmacion=true;
+        this.recargarForm();
       },
       err => {
         this.error=true;
         console.log(err.error.message);
       }
     )
-    this.limpiarDatos();
-    this.ngOnInit(); 
   }
 
   editar(articulo:any){
-    if(!this.verificarForm(articulo))
+    this.confirmacion=false;
+    this.error=false;
+
+    if(!this.verificarEdit(articulo))
     {
       this.error=true;
-      console.log('Verifique los datos');
     } else
     {
       this.articulosService.editarArticulo(articulo).subscribe(
         res => {
-          console.log(res);
+          this.ngOnInit();
           this.mensaje = "actualizado";
           this.confirmacion=true;
         },
         err => {
           this.error=true;
-          console.log(err.error.message);
+          this.mensaje = err.error.message;
         }
       )
     }
-    this.ngOnInit();    
   }
 
   eliminar(articulo:any){
-    this.articulosService.eliminarArticulo(articulo).subscribe(
+    this.confirmacion=false;
+    this.error=false;
+    this.articulosService.eliminarArticulo(articulo.Id).subscribe(
       res => {
-        console.log(res);
         this.mensaje = "eliminado";
           this.confirmacion=true;
       },
       err => {
-        console.log(err.error.message);
+        this.error=true;
+        this.mensaje = err.error.message;
       }
     )
     this.ngOnInit();    
   }
 
-  verificarForm(articulo:any):boolean{    
-    this.errorNombre=this.verificarNombre(articulo.nombre);
-    this.errorPrecio=this.verificarPrecio(articulo.precio);
-    
-    if((this.errorNombre+this.errorPrecio)>0){
+  verificarForm():boolean{    
+    this.errorCodigoProducto=this.verificarCodigoProducto(this.articulo.CodigoProducto);
+    this.errorDescripcion=this.verificarDescripcion(this.articulo.Descripcion);
+    this.errorRazonSocial=this.verificarRazonSocial(this.articulo.RazonSocial);
+    this.errorStockActual=this.verificarStockActual(this.articulo.StockActual);
+    this.errorPrecioVenta=this.verificarPrecioVenta(this.articulo.PrecioVenta);
+
+    console.log(this.articulo.CodigoProducto);
+    console.log(this.articulo.Descripcion);
+    console.log(this.errorRazonSocial);
+    console.log(this.errorStockActual);
+    console.log(this.errorPrecioVenta);
+        
+    if((this.errorCodigoProducto+this.errorDescripcion+this.errorRazonSocial+this.errorRazonSocial+this.errorStockActual+this.errorPrecioVenta)>0){
       this.error=true;      
       return false;
     }
     return true;
   }
 
-  verificarNombre(nombre:string):number {
-    if(nombre.length==0)
+  verificarEdit(articulo:any):boolean{    
+    this.errorCodigoProducto=this.verificarCodigoProducto(articulo.CodigoProducto);
+    this.errorDescripcion=this.verificarDescripcion(articulo.Descripcion);
+    this.errorRazonSocial=this.verificarRazonSocial(articulo.RazonSocial);
+    this.errorStockActual=this.verificarStockActual(articulo.StockActual);
+    this.errorPrecioVenta=this.verificarPrecioVenta(articulo.PrecioVenta);
+        
+    if((this.errorCodigoProducto+this.errorDescripcion+this.errorRazonSocial+this.errorRazonSocial+this.errorStockActual+this.errorPrecioVenta)>0){
+      this.error=true;      
+      return false;
+    }
+    return true;
+  }
+
+  verificarCodigoProducto(CodigoProducto:any): number {
+    if(CodigoProducto.length==0)
       return 1;
-    else if(nombre.replace(' ','') === "")
+    else if(CodigoProducto.replace(' ','') === "")
     {
-      this.datos.nombre = "";
+      this.articulo.CodigoProducto = "";
       return 2;
     } else
     return 0;
   }
   
-  verificarPrecio(precio:any): number {
-    if(precio.length==0)
+  verificarDescripcion(Descripcion:any): number {
+    if(Descripcion.length==0)
       return 1;
+    else if(Descripcion.replace(' ','') === "")
+    { 
+      this.articulo.Descripcion = "";
+      return 2;
+    } else
+    return 0;
+  } 
+
+  verificarRazonSocial(RazonSocial:any): number {
+    if(RazonSocial.length==0)
+      return 1;
+    else if(RazonSocial.replace(' ','') === "")
+    { 
+      this.articulo.RazonSocial = "";
+      return 2;
+    } else
     return 0;
   }
 
-  limpiarDatos() {      
-      this.datos.nombre = "";
-      this.datos.precio = "";
-    }
+  verificarStockActual(StockActual:any): number {
+    if(StockActual==null)
+      return 1;    
+    else if(StockActual.length==0){ 
+      this.articulo.RazonSocial = "";
+      return 2;
+    } else
+      return 0;
+  }  
+
+  verificarPrecioVenta(PrecioVenta:any): number {
+    if(PrecioVenta==null)
+      return 1;    
+    else if(PrecioVenta.length==0){ 
+      this.articulo.RazonSocial = "";
+      return 2;
+    } else
+      return 0;
+  }
+
+  recargarForm(){    
+    this.articulo.CodigoProducto="";
+    this.articulo.Descripcion="";
+    this.articulo.RazonSocial="";
+    this.articulo.StockActual="";
+    this.articulo.PrecioVenta="";    
+	  this.mensaje="";
+  }
 
 }

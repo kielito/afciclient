@@ -25,6 +25,7 @@ import { ComentariosAbmComponent } from './components/comentarios/comentarios-ab
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterprodPipe } from './pipes/filterprod.pipe';
 
+
 @NgModule({ //Clase
   declarations: [
     AppComponent,

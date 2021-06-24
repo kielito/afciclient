@@ -59,7 +59,6 @@ export class UsuariosAbmComponent implements OnInit {
     if(!this.verificarEdit(usuario))
     {
       this.error=true;
-      this.mensaje = "Verifique los datos ingresados";
     } else {    
       
       this.usuariosService.actualizarUsuario(usuario.Id, usuario).subscribe(
