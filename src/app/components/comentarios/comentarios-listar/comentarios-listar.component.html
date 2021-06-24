@@ -24,21 +24,13 @@
             </tbody>
         </ng-template>
     </table>
-
     <table class="table table-light table-striped table-hover">
-
-        <tr *ngFor=" let comentario of comentarios">
-            <td><input type="file" name="files" (change)="SeleccionArchivo($event)"></td>
-            <td><button class="btn btn-primary btn-block">Guardar </button></td>
-            
+        <tr>
+            <form (submit)="cargarArchivo()">
+                <td><input type="file" name="files" (change)="SeleccionArchivo($event)"></td>
+                <td><button class="btn btn-primary btn-block">Guardar </button></td>
+            </form>
         </tr>
-
     </table>
-
-
-   
-
-
-
     <button class="btn btn-dark mr-3" id="botones" routerLink="../../usuarios/home">Volver</button>
 </body>
