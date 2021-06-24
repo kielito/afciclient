@@ -1,4 +1,13 @@
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="filterProveedor" placeholder="Buscar razon social..." [(ngModel)]="filterProveedor">
+                </div>
+            </div>
+        </div>
+    </div>
     <table class="table table-light table-striped table-hover">
         <thead class="thead-dark">
             <th>Tipo Documento</th>
@@ -12,7 +21,7 @@
             <th>Descripción</th>
         </thead>
         <tbody *ngIf="proveedores.length > 0; else fila">
-            <tr *ngFor=" let proveedor of proveedores; let i= index">
+            <tr *ngFor=" let proveedor of proveedores | filterprov:filterProveedor; let i= index">
                 <td>{{proveedor.TipoDocumento}}</td>
                 <td>{{proveedor.NumeroDocumento}}</td>
                 <td>{{proveedor.RazonSocial}}</td>

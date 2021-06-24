@@ -24,6 +24,7 @@ import { ComentariosListarComponent } from './components/comentarios/comentarios
 import { ComentariosAbmComponent } from './components/comentarios/comentarios-abm/comentarios-abm.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { FilterprodPipe } from './pipes/filterprod.pipe';
+import { FilterprovPipe } from './pipes/filterprov.pipe';
 
 
 @NgModule({ //Clase
@@ -37,7 +38,7 @@ import { FilterprodPipe } from './pipes/filterprod.pipe';
     UsuariosHomeComponent,        
     ArticulosListarComponent, 
     ArticulosABMComponent, 
-    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent, ComentariosListarComponent, ComentariosAbmComponent, FilterPipe, FilterprodPipe
+    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent, ComentariosListarComponent, ComentariosAbmComponent, FilterPipe, FilterprodPipe, FilterprovPipe
   ],
   imports: [ //Seccion
     BrowserModule,

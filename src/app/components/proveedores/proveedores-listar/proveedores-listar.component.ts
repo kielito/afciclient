@@ -13,6 +13,8 @@ export class ProveedoresListarComponent implements OnInit {
   
   constructor(private proveedoresService:ProveedoresService, private usuariosService: UsuariosService) { }
 
+  filterProveedor = '';
+
   ngOnInit(): void {
     this.usuariosService.logued$.emit();
     this.proveedoresService.listarProveedor().subscribe(

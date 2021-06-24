@@ -13,6 +13,8 @@ export class ArticulosListarComponent implements OnInit {
     
   constructor(private articulosService:ArticulosService, private usuariosService: UsuariosService) { }
 
+  filterArticulo = '';
+
   ngOnInit(): void {
     this.usuariosService.logued$.emit();
     this.articulosService.listarArticulo().subscribe(
