@@ -44,7 +44,7 @@ export class UsuariosService{
 	}
 
 	actualizarUsuario(id:string, actualizaUsuario: Usuario):Observable<Usuario>{ //Observable: se utiliza para pasar objetos de tipo "algo", en este caso de tipo Usuario
-		return this.http.put(`${this.API_URI}/update/${id}`,actualizaUsuario);
+		return this.http.post(`${this.API_URI}/update/${id}`,actualizaUsuario);
 	}
 	
 	eliminarUsuario(id:string){

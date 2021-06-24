@@ -34,11 +34,12 @@ p {
 }
 
 #aviso {    
-    position:absolute;
-    padding-top: 3%;    
+    position:fixed;
+    padding-top: 4%;    
     left: 42%;
     top: 0;    
     font-size:15px;
+    z-index: 2;
 }
 
 #carga {
@@ -47,7 +48,7 @@ p {
     justify-content: center;
 }
 
-#mensaje {
+#mensaje {    
     margin-left: 37%;
 }
 

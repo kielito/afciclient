@@ -27,7 +27,6 @@ export class UsuariosIngresarComponent implements OnInit {
   ingresar(){ //Metodo que se llama desde el formulario HTML
 		console.log("Sign In");
     console.log(this.user);
-    this.error = false;
     
     this.usuariosService.ingresar(this.user).subscribe( //
       /*res => { //bloque de ejecucion cuando la conexion con el server es exitosa
@@ -82,6 +81,7 @@ export class UsuariosIngresarComponent implements OnInit {
 
   recargarForm(){
     this.reintentar=false;
+    this.user.Usuario="";
     this.user.Email="";
     this.user.Password="";
 	  this.mensaje="";

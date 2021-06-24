@@ -25,14 +25,16 @@ export class UsuariosAbmComponent implements OnInit {
   constructor(private usuariosService:UsuariosService) { }
 
   ngOnInit(): void {
+    this.usuariosService.logued$.emit();
+    this.confirmacion=false;
+    this.error=false;
     this.usuariosService.listarUsuarios().subscribe( //se utiliza subscribe ya que el metodo trabaja con la base de datos
 			//res => console.log(res), //Parametro 1: si se ejecuto bien se informa
       res => { 
         this.usuarios = res;
       },
 			err => console.log(err) //Parametro 2: si hubo un error lo informo
-		) //los log se ven en la consola del navegador
-    this.usuariosService.logued$.emit();
+		) //los log se ven en la consola del navegador    
   }
 
   registrar(){		
@@ -41,34 +43,42 @@ export class UsuariosAbmComponent implements OnInit {
         let id: any=res;
         this.mensaje = "agregado";
         this.confirmacion=true;
+        this.recargarForm();
       },
       err => {
         this.error=true;
-        console.log(err.error.message);
+        this.mensaje = err.error.message;
       }
     )
-    //this.limpiarDatos();
+    
     this.ngOnInit(); 
   }
 
   editar(usuario:any){
-    this.confirmacion=false;
-    /*this.usuariosService.eliminarUsuario(articulo.Id).subscribe(
-      res => {
-        console.log(res);
-        this.mensaje = "eliminado";
-        this.confirmacion=true;
-      },
-      err => {
-        console.log(err.error.message);
-      }
-    )*/
-    this.ngOnInit();
+    this.confirmacion=false; 
+    if(!this.verificarEdit(usuario))
+    {
+      this.error=true;
+      this.mensaje = "Verifique los datos ingresados";
+    } else {    
+      
+      this.usuariosService.actualizarUsuario(usuario.Id, usuario).subscribe(
+        res => {        
+          this.ngOnInit();
+          this.mensaje = "actualizado";
+          this.confirmacion=true;
+        },
+        err => {
+          this.error=true;
+          this.mensaje = err.error.message;
+        }
+      )
+    }
   }
 
-  eliminar(articulo:any){
+  eliminar(usuario:any){
     this.confirmacion=false;
-    this.usuariosService.eliminarUsuario(articulo.Id).subscribe(
+    this.usuariosService.eliminarUsuario(usuario.Id).subscribe(
       res => {
         console.log(res);
         this.mensaje = "eliminado";
@@ -94,6 +104,28 @@ export class UsuariosAbmComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  verificarEdit(usuario:any):boolean{    
+    this.errorUsuario=this.verificarUsuario(usuario.Usuario);
+    this.errorNombre=this.verificarNombre(usuario.Nombre);
+    this.errorApellido=this.verificarApellido(usuario.Apellido);    
+    this.errorEmail=this.verificarEmail(usuario.Email);
+    this.errorPerfil=this.verificarRol(usuario.Perfil);
+
+    if(usuario.NPass)
+    {
+      this.errrorPassword=this.verificarPassword(usuario.NPass);
+      if(  (this.errorUsuario+this.errorNombre+this.errorApellido+this.errrorPassword+this.errorEmail+this.errorPerfil)>0){
+        return false;
+      }
+      return true;
+    } else {
+      if( (this.errorUsuario+this.errorNombre+this.errorApellido+this.errorEmail+this.errorPerfil)>0){
+        return false;
+      }
+      return true;
+    }
   }
 
   verificarUsuario(usuario:string):number {
@@ -165,11 +197,18 @@ export class UsuariosAbmComponent implements OnInit {
     return 0;
   }
 
-  limpiarUsuario() {
-    if (this.errorUsuario > 0) {      
-      this.user.usuario = "";
-      this.errorUsuario = 0;
-    }
+  limpiarDatos(){
+    this.limpiarUsuario();
+    this.limpiarNombre();
+    this.limpiarApellido();
+    this.limpiarPassword();
+    this.limpiarRePassword();
+    this.limpiarEmail();
+  }
+
+  limpiarUsuario() {    
+    this.user.usuario = "";
+    this.errorUsuario = 0;    
   }
 
   limpiarNombre() {
@@ -206,6 +245,16 @@ export class UsuariosAbmComponent implements OnInit {
       this.user.email = "";
       this.errorEmail = 0;
     }
+  }
+
+  recargarForm(){    
+    this.user.usuario="";
+    this.user.nombre="";
+    this.user.apellido="";
+    this.user.password="";
+    this.user.repassword="";
+    this.user.email="";
+	  this.mensaje="";
   }
 
   logout(){

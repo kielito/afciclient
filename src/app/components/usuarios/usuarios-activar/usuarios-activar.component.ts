@@ -17,6 +17,7 @@ export class UsuariosActivarComponent implements OnInit {
   constructor(private usuariosService: UsuariosService, private router:Router, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.usuariosService.logued$.emit();
     this.parametro = this.activatedRoute.snapshot.params.id;
     
     this.usuariosService.activar(this.parametro).subscribe(

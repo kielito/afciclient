@@ -6,23 +6,33 @@
             <strong>Usuario {{mensaje}} correctamente!</strong> 
         </div>
         </div>
-    </tbody>    
+    </tbody>   
+    <tbody *ngIf="error">
+        <div id="aviso">
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error: {{mensaje}}</strong> 
+        </div>
+        </div>
+    </tbody>  
     <table class="table table-light table-striped table-hover">
         <thead class="thead-dark">
             <th>ID</th>
             <th>Usuario</th>
             <th>Nombre</th>
-            <th>Apellido</th>        
-            <th>Email</th>
+            <th>Apellido</th>
+            <th>Contraseña</th>
+            <th>Email</th>            
             <th>Perfil</th>
             <th>Accion</th>
         </thead>
         <tbody *ngIf="usuarios.length > 0; else fila">
             <tr *ngFor=" let usuario of usuarios">
-                <td>{{usuario.Id}}</td>
+                <td><input class="form-control" type="number" name="id" [(ngModel)]="usuario.Id" readonly></td>
                 <td><input class="form-control" type="text" name="usuario" [(ngModel)]="usuario.Usuario"></td>
                 <td><input class="form-control" type="text" name="nombre" [(ngModel)]="usuario.Nombre"></td>
                 <td><input class="form-control" type="text" name="apellido" [(ngModel)]="usuario.Apellido"></td>
+                <td><input class="form-control" type="text" name="npass" [(ngModel)]="usuario.NPass" placeholder="Ingrese la nueva clave"></td>
                 <td><input class="form-control" type="email" name="email" [(ngModel)]="usuario.Email"></td>
                 <td><select name="perfil" [(ngModel)]="usuario.Perfil" placeholder="Perfil"class="form-control">                    
                     <option value="Admin">Admin</option>
