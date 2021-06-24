@@ -1,10 +1,4 @@
 <body>
-    <div class="container p-4">
-        <form (submit)="cargarArchivo()">
-            <input type="file" name="files" (change)="SeleccionArchivo($event)">
-            <button class="btn btn-primary btn-block">Guardar </button>
-        </form>
-    </div>
     <table class="table table-light table-striped table-hover">
         <thead class="thead-dark">
             <th>Id</th>
@@ -30,5 +24,21 @@
             </tbody>
         </ng-template>
     </table>
+
+    <table class="table table-light table-striped table-hover">
+
+        <tr *ngFor=" let comentario of comentarios">
+            <td><input type="file" name="files" (change)="SeleccionArchivo($event)"></td>
+            <td><button class="btn btn-primary btn-block">Guardar </button></td>
+            
+        </tr>
+
+    </table>
+
+
+   
+
+
+
     <button class="btn btn-dark mr-3" id="botones" routerLink="../../usuarios/home">Volver</button>
 </body>
