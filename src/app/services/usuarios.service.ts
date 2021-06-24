@@ -78,5 +78,9 @@ export class UsuariosService{
 		return this.http.post(`${this.API_URI}/archivos`,fd);
 	}
 
+	listarArchivos(){
+		return this.http.get(`${this.API_URI}/archivos`);
+	}
+
 	
 }

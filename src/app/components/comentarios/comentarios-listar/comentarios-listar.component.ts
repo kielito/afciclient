@@ -16,6 +16,7 @@ export class ComentariosListarComponent implements OnInit {
   file:any;
   admin:Boolean=false;
   usuario:any = [];
+  fotos:any = [];
 
   constructor(private comentariosService:ComentariosService, private usuariosService: UsuariosService) { }
 
@@ -27,6 +28,17 @@ export class ComentariosListarComponent implements OnInit {
 				console.log(res)
 			},
       err => console.log(err)
+    )
+
+    //LISTAR FOTOS
+    this.usuariosService.listarArchivos().subscribe(
+      res => {
+        this.fotos = res;         
+        console.log(this.fotos);
+      },        
+        err => {
+          console.log(err);         
+      }
     )
   }
 
