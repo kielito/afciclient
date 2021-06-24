@@ -21,6 +21,9 @@ import { ProveedoresListarComponent } from './components/proveedores/proveedores
 import { ProveedoresAbmComponent } from './components/proveedores/proveedores-abm/proveedores-abm.component';
 import { UsuariosActivarComponent } from './components/usuarios/usuarios-activar/usuarios-activar.component';
 
+import { ComentariosListarComponent } from './components/comentarios/comentarios-listar/comentarios-listar.component';
+import { ComentariosAbmComponent } from './components/comentarios/comentarios-abm/comentarios-abm.component';
+
 
 @NgModule({ //Clase
   declarations: [
@@ -33,7 +36,7 @@ import { UsuariosActivarComponent } from './components/usuarios/usuarios-activar
     UsuariosHomeComponent,        
     ArticulosListarComponent, 
     ArticulosABMComponent, 
-    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent
+    UsuariosAbmComponent, ProveedoresListarComponent, ProveedoresAbmComponent, UsuariosActivarComponent, ComentariosListarComponent, ComentariosAbmComponent
   ],
   imports: [ //Seccion
     BrowserModule,

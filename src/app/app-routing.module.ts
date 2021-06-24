@@ -14,6 +14,9 @@ import { ArticulosABMComponent} from "./components/articulos/articulos-abm/artic
 import { ProveedoresListarComponent} from "./components/proveedores/proveedores-listar/proveedores-listar.component";
 import { ProveedoresAbmComponent } from "./components/proveedores/proveedores-abm/proveedores-abm.component";
 
+import { ComentariosListarComponent} from "./components/comentarios/comentarios-listar/comentarios-listar.component";
+import { ComentariosAbmComponent } from "./components/comentarios/comentarios-abm/comentarios-abm.component";
+
 const routes: Routes = [	
 	{//ruta por default: "/"
 		path: '',
@@ -75,6 +78,17 @@ const routes: Routes = [
 	{
 		path: 'proveedores/abmproveedores',
 		component: ProveedoresAbmComponent,
+		canActivate: [AuthGuard, AdminGuard]
+	},
+	//PROVEEDORES
+	{
+		path: 'comentarios/listar',
+		component: ComentariosListarComponent,
+		canActivate: [AuthGuard]
+	},
+	{
+		path: 'comentarios/abmcomentarios',
+		component: ComentariosAbmComponent,
 		canActivate: [AuthGuard, AdminGuard]
 	}
 ];

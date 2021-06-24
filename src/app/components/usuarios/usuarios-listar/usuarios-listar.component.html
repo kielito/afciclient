@@ -1,4 +1,13 @@
 <body> 
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <input class="form-control" id="myInput" type="text" placeholder="Buscar...">
+                </div>
+            </div>
+        </div>
+    </div>
     <table class="table table-light table-striped table-hover">
         <thead class="thead-dark">
             <th>ID</th>
@@ -8,8 +17,8 @@
             <th>Email</th>
             <th>Perfil</th>
         </thead>
-        <tbody *ngIf="usuarios.length > 0; else fila">
-            <tr *ngFor=" let usuario of usuarios">
+        <tbody id="myTable" *ngIf="usuarios.length > 0; else fila">
+            <tr *ngFor=" let usuario of usuarios; let i= index">
                 <td>{{usuario.Id}}</td>
                 <td>{{usuario.Usuario}}</td>
                 <td>{{usuario.Nombre}}</td>
