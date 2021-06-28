@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 
 export class UsuariosService{
 	
-	API_URI = 'http://localhost:3000/user'; //variable local a la clase con la ruta
-	//API_URI = 'https://dstpwebpeceraserver.herokuapp.com/user';
+	//API_URI = 'http://localhost:3000/user'; //variable local a la clase con la ruta
+	API_URI = 'https://dstpwebpeceraserver.herokuapp.com/user';
 	//private estadoSesion : Subject<boolean> = new Subject();
 	logued$ : EventEmitter<string> = new EventEmitter<string>();	
 

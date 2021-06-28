@@ -9,8 +9,8 @@ import { Observable } from 'rxjs'; // para actualizar usuario
 
 
 export class ComentariosService{
-  API_URI = 'http://localhost:3000/comentario'; // ubicacion del servidor y el objeto que llamamos
-  //API_URI = 'https://dstpwebpeceraserver.herokuapp.com/comentario';
+  //API_URI = 'http://localhost:3000/comentario'; // ubicacion del servidor y el objeto que llamamos
+  API_URI = 'https://dstpwebpeceraserver.herokuapp.com/comentario';
   
   constructor(private http: HttpClient){}
 

@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ProveedoresService {
-  API_URI = 'http://localhost:3000/proveedor';
-  //API_URI = 'https://dstpwebpeceraserver.herokuapp.com/proveedor';
+  //API_URI = 'http://localhost:3000/proveedor';
+  API_URI = 'https://dstpwebpeceraserver.herokuapp.com/proveedor';
   constructor(private http: HttpClient, private router:Router) { }
 
   //PROVEEDORES	

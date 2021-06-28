@@ -7,8 +7,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class ComprasService {
-  API_URI = 'http://localhost:3000/compra'; //variable local a la clase con la ruta
-  //API_URI = 'https://dstpwebpeceraserver.herokuapp.com/compra';
+  //API_URI = 'http://localhost:3000/compra'; //variable local a la clase con la ruta
+  API_URI = 'https://dstpwebpeceraserver.herokuapp.com/compra';
 
   constructor(private http: HttpClient, private router:Router) { }
 
