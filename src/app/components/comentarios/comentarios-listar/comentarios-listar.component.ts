@@ -18,54 +18,37 @@ export class ComentariosListarComponent implements OnInit {
   usuario:any = [];
   fotos:any = [];
 
+  confirmacion:boolean = false;
+  error:boolean = false;
+  mensaje = "";
+
   constructor(private comentariosService:ComentariosService, private usuariosService: UsuariosService) { }
 
   ngOnInit(): void {
     this.usuariosService.logued$.emit();
     this.comentariosService.listarComentarios().subscribe(
       res => { 
-				this.comentarios = res; 
-				console.log(res)
+				this.comentarios = res;
 			},
-      err => console.log(err)
+      err =>{
+        this.error=true;
+        this.mensaje = err.error.message;
+      }
     )
 
     //LISTAR FOTOS
-    this.usuariosService.listarArchivos().subscribe(
+    this.comentariosService.listarArchivos().subscribe(
       res => {
-        this.fotos = res;         
-        console.log(this.fotos);
+        this.fotos = res;
       },        
         err => {
-          console.log(err);         
+          this.error=true;
+          this.mensaje = err.error.message;  
       }
     )
   }
 
-  SeleccionArchivo(event: any): void{
-    if(event.target.files && event.target.files[0]){
-      this.file = <File>event.target.files[0];
-
-      const reader = new FileReader();
-      reader.onload = e => this.archivoSeleccionado = reader.result;
-      reader.readAsDataURL(this.file);   
-      
-      console.log(this.file);
-    }
-  }
-
-  cargarArchivo(){
-    console.log(this.file);
-    this.usuariosService.cargar(this.file).subscribe(
-      res => {
-        console.log(res);
-                
-      },        
-        err => {
-          console.log(err);         
-      }
-    )
-  }
+  
 
   logout(){
     //Es de notar que la redireccion del metodo logOut podria haberse hecho aqui y dejar el servicio lo mas acotado posible.    

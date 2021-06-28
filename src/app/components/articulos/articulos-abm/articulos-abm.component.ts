@@ -52,7 +52,7 @@ export class ArticulosABMComponent implements OnInit {
       },
       err => {
         this.error=true;
-        console.log(err.error.message);
+        this.mensaje = err.error.message;
       }
     )
   }
@@ -61,8 +61,9 @@ export class ArticulosABMComponent implements OnInit {
     this.confirmacion=false;
     this.error=false;
 
+    console.log(articulo);
     if(!this.verificarEdit(articulo))
-    {
+    {      
       this.error=true;
     } else
     {
@@ -131,53 +132,59 @@ export class ArticulosABMComponent implements OnInit {
   }
 
   verificarCodigoProducto(CodigoProducto:any): number {
-    if(CodigoProducto.length==0)
+    CodigoProducto = CodigoProducto.replace(' ','');
+
+    if(CodigoProducto.length==0){
+      this.mensaje = "Debes completar todos los datos";
       return 1;
-    else if(CodigoProducto.replace(' ','') === "")
-    {
-      this.articulo.CodigoProducto = "";
+    }
+    else if(CodigoProducto.length > 50)
+    {      
+      this.mensaje = "Codigo Producto muy largo";
       return 2;
-    } else
+    } else    
     return 0;
   }
   
   verificarDescripcion(Descripcion:any): number {
+    Descripcion = Descripcion.replace(' ','');
+
     if(Descripcion.length==0)
       return 1;
-    else if(Descripcion.replace(' ','') === "")
-    { 
-      this.articulo.Descripcion = "";
+    else if(Descripcion.length > 255){      
+      this.mensaje = "Descripcion muy largo";
       return 2;
-    } else
+      } else
     return 0;
   } 
 
   verificarRazonSocial(RazonSocial:any): number {
+    RazonSocial = RazonSocial.replace(' ','');
+
     if(RazonSocial.length==0)
       return 1;
-    else if(RazonSocial.replace(' ','') === "")
-    { 
-      this.articulo.RazonSocial = "";
+    else if(RazonSocial.length > 150){      
+      this.mensaje = "Descripcion muy largo";
       return 2;
     } else
-    return 0;
+      return 0;
   }
 
   verificarStockActual(StockActual:any): number {
-    if(StockActual==null)
+    if(StockActual==null || StockActual.length==0)
       return 1;    
-    else if(StockActual.length==0){ 
-      this.articulo.RazonSocial = "";
+    else if(StockActual < 0 || StockActual > 1000){ 
+      this.mensaje = "StockActual debe estar entre 0 y 1000";
       return 2;
     } else
       return 0;
   }  
 
   verificarPrecioVenta(PrecioVenta:any): number {
-    if(PrecioVenta==null)
+    if(PrecioVenta==null|| PrecioVenta.length==0)
       return 1;    
-    else if(PrecioVenta.length==0){ 
-      this.articulo.RazonSocial = "";
+      else if(PrecioVenta < 0.01 || PrecioVenta > 1000000){ 
+        this.mensaje = "Precio Venta debe estar entre 0.01 y 1000000";
       return 2;
     } else
       return 0;

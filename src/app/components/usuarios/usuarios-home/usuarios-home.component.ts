@@ -44,19 +44,6 @@ export class UsuariosHomeComponent implements OnInit {
     }
   }
 
-  cargarArchivo(){
-    console.log(this.file);
-    this.usuariosService.cargar(this.file).subscribe(
-      res => {
-        console.log(res);
-                
-      },        
-        err => {
-          console.log(err);         
-      }
-    )
-  }
-
   logout(){
     //Es de notar que la redireccion del metodo logOut podria haberse hecho aqui y dejar el servicio lo mas acotado posible.
     this.usuariosService.logOut();

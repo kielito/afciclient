@@ -1,1 +1,62 @@
-<p>comentarios-abm works!</p>
+<body>
+    
+    <tbody *ngIf="confirmacion">
+        <div id="aviso">
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Comentario {{mensaje}} correctamente!</strong> 
+        </div>
+        </div>
+    </tbody>
+    <tbody *ngIf="error">
+        <div id="aviso">
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error: verifique los datos ingresados!</strong> 
+        </div>
+        </div>
+    </tbody>
+    <div id="label">
+        <h4>Nuevo Comentario</h4>
+            <form (submit)="registrar()">                
+                <div class="form-group">
+                    <label><strong>Título</strong> </label>
+                    <input type="text" class="form-control" name="Titulo" [(ngModel)]="coment.Titulo" placeholder="Titulo">
+                    <div [ngSwitch]="errorTitulo">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Título muy largo</div>
+                        <div *ngSwitchCase="3">Caracteres no permitidos</div>
+                    </div>
+                    <label><strong>Comentario</strong></label>     
+                    <input type="text" class="form-control" name="Comentario" [(ngModel)]="coment.Comentario" placeholder="Comentario">
+                    <div [ngSwitch]="errorComentario">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Comentario muy largo</div>
+                        <div *ngSwitchCase="3">Caracteres no permitidos</div>
+                    </div>                                        
+                </div>
+            </form>
+            <label><strong>Imagen</strong></label>
+            <form (submit)="cargarArchivo()">
+                <table class="table table-light table-striped table-hover">
+                    <tr>
+                        <td><input type="file" name="files" (change)="SeleccionArchivo($event)"></td>
+                        <td><button class="btn btn-primary btn-block">Cargar</button></td>
+                    </tr>
+                </table>
+            </form>
+    <div class="row">
+        <div class="col md-4 P-4"  *ngFor="let foto of fotos">
+            <div class="card">
+                <div class="card-header">
+                    {{foto.NombreOriginal}}
+                </div>
+                <img [src]="'http://localhost:3000/' + foto.Path" style="width:100px;height: 350px;" class="img-card-top w-100">
+                <button class="btn btn-danger btn-block" (click)="eliminar(foto)">Eliminar </button>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary" id="botones" (click)="verificarForm()">Guardar</button>    
+</div>
+    <button class="btn btn-dark mr-3" id="botones" routerLink="../../usuarios/home">Volver</button>
+</body>

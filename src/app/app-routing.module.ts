@@ -36,7 +36,8 @@ const routes: Routes = [
 	},
 	{
 		path: 'usuarios/registrar',
-		component: UsuariosRegistrarComponent
+		component: UsuariosRegistrarComponent,		
+		canActivate: [AuthGuard, AdminGuard]
 	},
 	{
 		path: 'usuarios/activar/:id',
@@ -89,7 +90,7 @@ const routes: Routes = [
 	{
 		path: 'comentario/abmcomentarios',
 		component: ComentariosAbmComponent,
-		canActivate: [AuthGuard, AdminGuard]
+		canActivate: [AuthGuard]
 	}
 ];
 

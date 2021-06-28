@@ -1,4 +1,21 @@
 <body>
+    <div id="contenedor">
+    <tbody *ngIf="confirmacion">
+        <div id="aviso">
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Archivo {{mensaje}} correctamente!</strong> 
+        </div>
+        </div>
+    </tbody>
+    <tbody *ngIf="error">
+        <div id="aviso">
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Error: verifique los datos ingresados!</strong> 
+        </div>
+        </div>
+    </tbody>
     <table class="table table-light table-striped table-hover">
         <thead class="thead-dark">
             <th>Id</th>
@@ -13,7 +30,7 @@
                 <td>{{comentario.Usuario}}</td>
                 <td>{{comentario.Fecha}}</td>
                 <td>{{comentario.Comentario}}</td>
-                <td>{{comentario.Imagen}}</td>
+                <td>{{comentario.Titulo}}</td>
             </tr>
         </tbody>
         <ng-template #fila>
@@ -23,24 +40,17 @@
                 </tr>
             </tbody>
         </ng-template>
-    </table>
-    <form (submit)="cargarArchivo()">
-        <table class="table table-light table-striped table-hover">
-            <tr>
-                <td><input type="file" name="files" (change)="SeleccionArchivo($event)"></td>
-                <td><button class="btn btn-primary btn-block">Guardar </button></td>
-            </tr>
-        </table>
-    </form>
+    </table>    
     <div class="row">
         <div class="col md-4 P-4"  *ngFor="let foto of fotos">
             <div class="card">
                 <div class="card-header">
                     {{foto.NombreOriginal}}
                 </div>
-                <img [src]="'http://localhost:3000/' + foto.Path" style="width:100px;height: 350px;" class="img-card-top w-100">
+                <img [src]="'http://localhost:3000/' + foto.Path" style="width:100px;height: 350px;" class="img-card-top w-100">                
             </div>
         </div>
     </div>
+</div>
     <button class="btn btn-dark mr-3" id="botones" routerLink="../../usuarios/home">Volver</button>
 </body>

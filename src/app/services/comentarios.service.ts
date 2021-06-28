@@ -9,8 +9,8 @@ import { Observable } from 'rxjs'; // para actualizar usuario
 
 
 export class ComentariosService{
-  //API_URI = 'http://localhost:3000/comentario'; // ubicacion del servidor y el objeto que llamamos
-  API_URI = 'https://dstpwebpeceraserver.herokuapp.com/comentario';
+  API_URI = 'http://localhost:3000/comentario'; // ubicacion del servidor y el objeto que llamamos
+  //API_URI = 'https://dstpwebpeceraserver.herokuapp.com/comentario';
   
   constructor(private http: HttpClient){}
 
@@ -22,8 +22,8 @@ export class ComentariosService{
     //return this.http.get(this.API_URI+'/list');
   }
 
-  agregarComentario(comentarios:any){ //METODO
-		return this.http.post(`${this.API_URI}/add`, comentarios);
+  agregarComentario(comentario:any){ //METODO
+		return this.http.post(`${this.API_URI}/add`, comentario);
 	}
 
 	editarComentario(id:any, comentarios:any){ //METODO
@@ -32,6 +32,22 @@ export class ComentariosService{
 
 	eliminarComentario(id:string){ //METODO		
     return this.http.delete(`${this.API_URI}/delete/${id}`);
+	}
+
+
+  	//CARGAR ARCHIVO
+	cargarArchivos(archivo:File){
+		const fd = new FormData();
+		fd.append('image', archivo);
+		return this.http.post(`${this.API_URI}/archivos`,fd);
+	}
+
+	listarArchivos(){
+		return this.http.get(`${this.API_URI}/archivos`);
+	}
+
+	eliminarArchivo(id:string){
+		return this.http.delete(`${this.API_URI}/archivos/${id}`);
 	}
   
 }

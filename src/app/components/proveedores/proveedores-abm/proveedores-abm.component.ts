@@ -108,10 +108,6 @@ export class ProveedoresAbmComponent implements OnInit {
     this.errorCodigoPostal=this.verificarCodigoPostal(this.proveedor.CodigoPostal);
     this.errorDescripcion=this.verificarDescripcion(this.proveedor.Descripcion);
     
-    console.log(this.proveedor.TipoDocumento);
-    console.log(this.proveedor.NumeroDocumento);
-    console.log(this.errorRazonSocial);
-
     if((this.errorTipoDocumento+this.errorNumeroDocumento+this.errorRazonSocial+this.errorDireccion+this.errorLocalidad+this.errorEmail+this.errorProvincia+this.errorCodigoPostal+this.errorDescripcion)>0){
       this.error=true;      
       return false;
