@@ -1,5 +1,4 @@
-<body>
-    
+<body>    
     <tbody *ngIf="confirmacion">
         <div id="aviso">
         <div class="alert alert-success alert-dismissible">
@@ -20,7 +19,7 @@
         <h4>Nuevo Comentario</h4>
             <form (submit)="registrar()">                
                 <div class="form-group">
-                    <label><strong>Título</strong> </label>
+                    <label><strong>Título</strong></label>
                     <input type="text" class="form-control" name="Titulo" [(ngModel)]="coment.Titulo" placeholder="Titulo">
                     <div [ngSwitch]="errorTitulo">
                         <div *ngSwitchCase="1">Debes completar el campo</div>
@@ -35,6 +34,7 @@
                         <div *ngSwitchCase="3">Caracteres no permitidos</div>
                     </div>                                        
                 </div>
+                <button class="btn btn-primary" id="botones" (click)="verificarForm()">Guardar</button>
             </form>
             <label><strong>Imagen</strong></label>
             <form (submit)="cargarArchivo()">
@@ -56,7 +56,6 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary" id="botones" (click)="verificarForm()">Guardar</button>    
 </div>
     <button class="btn btn-dark mr-3" id="botones" routerLink="../../usuarios/home">Volver</button>
 </body>
