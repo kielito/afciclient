@@ -58,47 +58,47 @@
             <form (submit)="registrar()">
                 <div class="form-group">
                     <label>Usuario</label>
-                    <input type="text" class="form-control" name="usuario" [(ngModel)]="user.usuario" placeholder="Usuario">                    
+                    <input type="text" class="form-control" name="usuario" [(ngModel)]="user.usuario" placeholder="Usuario" (blur)="onBlurUsuario(user.usuario)">                    
                     <div [ngSwitch]="errorUsuario">
                         <div *ngSwitchCase="1">Debes completar el campo</div>
                         <div *ngSwitchCase="2">Usuario muy largo</div>
                         <div *ngSwitchCase="3">Usuario debe ser alfabetico</div>
                     </div>
                     <label>Nombre</label>
-                    <input type="text" class="form-control" name="Nombre" [(ngModel)]="user.nombre" placeholder="Nombre">
+                    <input type="text" class="form-control" name="Nombre" [(ngModel)]="user.nombre" placeholder="Nombre" (blur)="onBlurNombre(user.nombre)">
                     <div [ngSwitch]="errorNombre">
                         <div *ngSwitchCase="1">Debes completar el campo</div>
                         <div *ngSwitchCase="2">Nombre muy largo</div>
                         <div *ngSwitchCase="3">Nombre debe ser alfabetico</div>
                     </div>
                     <label>Apellido</label>
-                    <input type="text" class="form-control" name="apellido" [(ngModel)]="user.apellido" placeholder="Apellido">
+                    <input type="text" class="form-control" name="apellido" [(ngModel)]="user.apellido" placeholder="Apellido" (blur)="onBlurApellido(user.apellido)">
                     <div [ngSwitch]="errorApellido">
                         <div *ngSwitchCase="1">Debes completar el campo</div>
                         <div *ngSwitchCase="2">Apellido muy largo</div>
                         <div *ngSwitchCase="3">Apellido debe ser alfabetico</div>
                     </div>
                     <label>Password</label>
-                    <input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Contraseña">
+                    <input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Contraseña" (blur)="onBlurPassword(user.password)">
                     <div [ngSwitch]="errrorPassword">
                         <div *ngSwitchCase="1">Debes completar el campo</div>
                         <div *ngSwitchCase="2">Contraseña muy larga</div>
                         <div *ngSwitchCase="3">Contraseña debe ser alfanumerica, admite mayusculas y un mínimo de 6 caracteres, no permite caracteres especiales.</div>
                     </div>
                     <label>RePassword</label>
-                    <input type="password" class="form-control" name="repassword" [(ngModel)]="user.repassword" placeholder="Repetir Contraseña">
+                    <input type="password" class="form-control" name="repassword" [(ngModel)]="user.repassword" placeholder="Repetir Contraseña" (blur)="onBlurRePassword(user.password, user.repassword)">
                     <div [ngSwitch]="errorRePassrword">
                         <div *ngSwitchCase="1">Las contraseñas deben ser iguales</div>
                     </div>
                     <label>Email</label>
-                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email">
+                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email" (blur)="onBlurEmail(user.email)">
                     <div [ngSwitch]="errorEmail">
                         <div *ngSwitchCase="1">Debes completar el campo</div>
                         <div *ngSwitchCase="2">Email muy largo</div>
                         <div *ngSwitchCase="3">Email debe ser nombre@dominio.algo .</div>
                     </div>
                     <label>Perfil</label>                    
-                    <select class="form-control" name="perfil" [(ngModel)]="user.perfil">
+                    <select class="form-control" name="perfil" [(ngModel)]="user.perfil" (blur)="onBlurRol(user.perfil)">
                         <option value="" selected>Seleccionar</option>
                         <option value="Admin">Admin</option>
                         <option value="Usuario">Usuario</option>

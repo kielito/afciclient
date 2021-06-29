@@ -139,6 +139,10 @@ export class UsuariosAbmComponent implements OnInit {
     return 0;
   }
 
+  onBlurUsuario(event: any){    
+    this.errorUsuario=this.verificarUsuario(event);  
+  }
+ 
   verificarNombre(nombre:string):number {
     const patron=/^[a-zA-Z]{2,20}$/;
     if(nombre.length==0)
@@ -148,6 +152,10 @@ export class UsuariosAbmComponent implements OnInit {
     if(!patron.test(nombre))
       return 3;
     return 0;
+  }
+  
+  onBlurNombre(nombre: any){    
+    this.errorNombre=this.verificarNombre(nombre);    
   }
 
   verificarApellido(apellido:string):number {
@@ -160,6 +168,10 @@ export class UsuariosAbmComponent implements OnInit {
       return 3;
     return 0;
   }
+
+  onBlurApellido(apellido: any){    
+    this.errorApellido=this.verificarApellido(apellido);
+  }
   
   verificarPassword(password:any): number {
     const patron=/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/;
@@ -171,12 +183,20 @@ export class UsuariosAbmComponent implements OnInit {
       return 3;
     return 0;
   }
+
+  onBlurPassword(passqord: any){    
+    this.errrorPassword=this.verificarPassword(passqord);
+  }
   
   verificarRePassword(password:any, repassword:any): number {
     if(password!=repassword){
       return 1;
     }
     return 0;
+  }
+  
+  onBlurRePassword(password: any, repassword: any){    
+    this.errorRePassrword=this.verificarRePassword(password, repassword);
   }
   
   verificarEmail(email:any): number {
@@ -190,11 +210,19 @@ export class UsuariosAbmComponent implements OnInit {
     return 0;
   }
 
+  onBlurEmail(email: any){    
+    this.errorEmail=this.verificarEmail(email);
+  }
+
   verificarRol(perfil:any): number {
     if(perfil!="Admin" && perfil!="Usuario"){
       return 1;
     }
     return 0;
+  }
+
+  onBlurRol(rol: any){    
+    this.errorPerfil=this.verificarRol(rol);
   }
 
   limpiarDatos(){
