@@ -62,21 +62,49 @@ export class UsuariosIngresarComponent implements OnInit {
   }
 
   verificarUsuario(usuario:string):number {    
+    const patron=/^[a-zA-Z]{2,20}$/;
     if(usuario.length==0)
       return 1;
+    if(usuario.length>20)
+      return 2;
+    if(!patron.test(usuario))
+      return 3;
     return 0;
   }
 
+  onBlurUsuario(event: any){    
+    this.errorUsuario=this.verificarUsuario(event);  
+  }
+
   verificarEmail(email:string):number {    
+    const patron=/^[a-z0-9\_\_.]{1,30}@[a-z0-9]{1,10}\.[a-z]{2,3}/;
     if(email.length==0)
       return 1;
+    if(email.length>50)
+      return 2;
+    if(!patron.test(email))
+      return 3;
     return 0;
+  }
+
+  onBlurEmail(email: any){    
+    this.errorEmail=this.verificarEmail(email);
   }
   
   verificarPassword(password:any): number {    
+    //const patron=/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/;
     if(password.length==0)
       return 1;
+    if(password.length>20)
+      return 2;
+    /*if(!patron.test(password))
+      return 3;
+      */
     return 0;
+  }
+  
+  onBlurPassword(passqord: any){    
+    this.errorPassword=this.verificarPassword(passqord);
   }
 
   recargarForm(){

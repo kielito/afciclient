@@ -20,18 +20,19 @@
             <form (submit)="registrar()">                
                 <div class="form-group">
                     <label><strong>Título</strong></label>
-                    <input type="text" class="form-control" name="Titulo" [(ngModel)]="coment.Titulo" placeholder="Titulo">
+                    <input type="text" class="form-control" name="Titulo" [(ngModel)]="coment.Titulo" placeholder="Titulo" (blur)="onBlurTitulo(coment.Titulo)">
                     <div [ngSwitch]="errorTitulo">
                         <div *ngSwitchCase="1">Debes completar el campo</div>
                         <div *ngSwitchCase="2">Título muy largo</div>
                         <div *ngSwitchCase="3">Caracteres no permitidos</div>
                     </div>
                     <label><strong>Comentario</strong></label>     
-                    <input type="text" class="form-control" name="Comentario" [(ngModel)]="coment.Comentario" placeholder="Comentario">
+                    <input type="text" class="form-control" name="Comentario" [(ngModel)]="coment.Comentario" placeholder="Comentario" (blur)="onBlurComentario(coment.Comentario)">
                     <div [ngSwitch]="errorComentario">
                         <div *ngSwitchCase="1">Debes completar el campo</div>
                         <div *ngSwitchCase="2">Comentario muy largo</div>
                         <div *ngSwitchCase="3">Caracteres no permitidos</div>
+                        <div *ngSwitchCase="4">Etiqueta no permitida</div>
                     </div>                                        
                 </div>
                 <button class="btn btn-primary" id="botones" (click)="verificarForm()">Guardar</button>

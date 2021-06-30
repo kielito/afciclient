@@ -9,18 +9,26 @@
                 <div *ngIf="!reintentar" class="card-body">
                     <form (submit)="ingresar()">
                         <div class="form-group">
-                            <input type="text" name="usuario" [(ngModel)]="user.Usuario" placeholder="Usuario" class="form-control" autofocus>
+                            <input type="text" name="usuario" [(ngModel)]="user.Usuario" placeholder="Usuario" class="form-control" (blur)="onBlurUsuario(user.Usuario)" autofocus>
                             <div [ngSwitch]="errorUsuario">
-                                <div *ngSwitchCase="1">Debes ingresar un usuario</div>
+                                <div [ngSwitch]="errorUsuario">
+                                    <div *ngSwitchCase="1">Debes completar el campo</div>
+                                    <div *ngSwitchCase="2">Usuario muy largo</div>
+                                    <div *ngSwitchCase="3">Usuario debe ser alfabetico</div>
+                                </div>
                             </div>
-                            <input type="email" name="email" [(ngModel)]="user.Email" placeholder="Email" class="form-control">
+                            <input type="email" name="email" [(ngModel)]="user.Email" placeholder="Email" class="form-control" (blur)="onBlurEmail(user.Email)">
                             <div [ngSwitch]="errorEmail">
-                                <div *ngSwitchCase="1">Debes ingresar un Email</div>
+                                <div *ngSwitchCase="1">Debes completar el campo</div>
+                                <div *ngSwitchCase="2">Email muy largo</div>
+                                <div *ngSwitchCase="3">Email debe ser nombre@dominio.algo .</div>
                             </div>
-                            <input type="password" name="password" [(ngModel)]="user.Password" placeholder="Contraseña" class="form-control">  
+                            <input type="password" name="password" [(ngModel)]="user.Password" placeholder="Contraseña" class="form-control" (blur)="onBlurPassword(user.Password)">  
                             <div [ngSwitch]="errorPassword">
-                                <div *ngSwitchCase="1">Debes ingresar la clave</div>
-                            </div>                          
+                                <div *ngSwitchCase="1">Debes completar el campo</div>
+                                <div *ngSwitchCase="2">Contraseña muy larga</div>
+                                <div *ngSwitchCase="3">Contraseña debe ser alfanumerica, admite mayusculas y un mínimo de 6 caracteres, no permite caracteres especiales.</div>
+                            </div>                         
                             <button type="submit" class="btn btn-success btn-block" (click)="verificarForm()">Ingresar</button>
                         </div>
                     </form>
