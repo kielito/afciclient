@@ -9,24 +9,23 @@ import { UsuariosService } from '../../services/usuarios.service';
 })
 export class NavigationComponent implements OnInit {
 
-  logueado:Boolean= true;
-  perfil:string= "";
+  logueado: Boolean = true;
+  perfil: string = "";
 
-  constructor(private usuariosService:UsuariosService) { }
+  constructor(private usuariosService: UsuariosService) { }
 
   ngOnInit(): void {
-    this.usuariosService.logued$.subscribe(log => {      
+    this.usuariosService.logued$.subscribe(log => {
       this.logueado = this.usuariosService.isLoggedIn();
-      if(localStorage.usuario)
-      {
+      if (localStorage.usuario) {
         var usuario = JSON.parse(localStorage.usuario);
-        this.perfil = usuario.Perfil;        
+        this.perfil = usuario.Perfil;
       }
     });
-        
+
   }
 
-  logout(){
+  logout() {
     //Es de notar que la redireccion del metodo logOut podria haberse hecho aqui y dejar el servicio lo mas acotado posible.
     this.logueado = false;
     this.usuariosService.logOut();

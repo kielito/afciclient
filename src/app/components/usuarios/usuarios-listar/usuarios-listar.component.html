@@ -10,22 +10,18 @@
         </div>
     </div>
     <table class="table table-light table-striped table-hover">
-        <thead class="thead-dark">
-            <th>ID</th>
+        <thead class="thead-dark">            
             <th>Usuario</th>
             <th>Nombre</th>
             <th>Apellido</th>        
-            <th>Email</th>
-            <th>Perfil</th>
+            <th>Email</th>           
         </thead>
         <tbody *ngIf="usuarios.length > 0; else fila">
             <tr *ngFor=" let usuario of usuarios | filter:filterUsuarios">
-                <td>{{usuario.Id}}</td>
                 <td>{{usuario.Usuario}}</td>
                 <td>{{usuario.Nombre}}</td>
                 <td>{{usuario.Apellido}}</td>
-                <td>{{usuario.Email}}</td>
-                <td>{{usuario.Perfil}}</td>                
+                <td>{{usuario.Email}}</td>                            
             </tr>
         </tbody>
         <ng-template #fila>

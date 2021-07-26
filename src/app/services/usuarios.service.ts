@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 
 export class UsuariosService{
 	
-	//API_URI = 'http://localhost:3000/user'; //variable local a la clase con la ruta
-	API_URI = 'https://dstpwebpeceraserver.herokuapp.com/user';
+	API_URI = 'http://localhost:3000/user'; //variable local a la clase con la ruta
+	//API_URI = 'https://dstpwebpeceraserver.herokuapp.com/user';
 	//private estadoSesion : Subject<boolean> = new Subject();
 	logued$ : EventEmitter<string> = new EventEmitter<string>();	
 
@@ -24,19 +24,18 @@ export class UsuariosService{
 	ingresar(usuario:any){
 	return this.http.post(`${this.API_URI}/signin`,usuario);
 	}
-
-	listarUsuarios(){ //METODO
+	//METODO
+	listarUsuarios(){ 
 		//para expandir/especializar las variables usamos ` y no ' o "
 		//Las variables salen pintadas de otro color diferente del de texto
 		return this.http.get(`${this.API_URI}/list`); //http: variable definida en el constructor / Parametro se pasa la ruta principal seguida del metodo q quiero utilizar
 		//si no funciona usar 
 		//return this.http.get(this.API_URI+'/list');
 	}
-	
-	buscarUsuario(id:string){ //METODO
+	//METODO
+	buscarUsuario(id:string){
 		return this.http.get(`${this.API_URI}/find/${id}`);
 	}
-
 
 	//ABM
 	registrar(usuario:any){
@@ -50,8 +49,7 @@ export class UsuariosService{
 	eliminarUsuario(id:string){
 		return this.http.delete(`${this.API_URI}/delete/${id}`);
 	}
-	//ABM	
-	
+	//FIN ABM		
 
 	//SESION
 	isLoggedIn():Boolean{
@@ -61,17 +59,11 @@ export class UsuariosService{
 
 	logOut(){
 		localStorage.removeItem('token');
-		localStorage.removeItem('carrito');	
 		localStorage.removeItem('usuario');
 		this.router.navigate(['usuarios/principal']);
 	}
 
 	getToken(){//Obtenemos el token que despues enviara el interceptor x cada req
 		return localStorage.getItem('token');
-	}
-	//SESION
-
-
-
-	
+	}	
 }

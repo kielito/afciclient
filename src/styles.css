@@ -4,12 +4,7 @@ html{
 }
 
 body {
-	background-color: #ceffce;
+	background-color: #ffffff;
 	font-family: Verdana;
-	height:94%;
-	/*background-image: url("assets/img/skyline.jpg");*/
-	/*background-repeat: repeat-y;*/
-	/*background-size: cover;*/
-	/*background-position: 40px 100px;*/
-	/*position left top right bottom*/
+	height:94%;	
 }
