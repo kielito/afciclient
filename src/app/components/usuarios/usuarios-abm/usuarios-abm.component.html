@@ -1,46 +1,178 @@
 <body>
     <tbody *ngIf="confirmacion">
         <div id="aviso">
-        <div class="alert alert-success alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Usuario {{mensaje}} correctamente!</strong> 
+            <div class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Usuario {{mensaje}} correctamente!</strong>
+            </div>
         </div>
-        </div>
-    </tbody>   
+    </tbody>
     <tbody *ngIf="error">
         <div id="aviso">
-        <div class="alert alert-danger alert-dismissible">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Error: {{mensaje}}</strong> 
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Error: {{mensaje}}</strong>
+            </div>
         </div>
+    </tbody>
+    <a class="btn btn-success mr-3" id="botones" href="#agregar" data-toggle="collapse">Agregar</a>
+    <div class="card-body" id="label">
+        <div id="agregar" class="collapse">
+            <h4>Nuevo Usuario</h4>
+            <form (submit)="registrar()">
+                <div class="form-group">
+                    <label>Dni</label>
+                    <input type="text" class="form-control" name="dni" [(ngModel)]="user.dni_usuario" placeholder="Dni"
+                        (blur)="onBlurDniUsuario(user.dni_usuario)">
+                    <div [ngSwitch]="errorDniUsuario">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">DNI muy largo</div>
+                        <div *ngSwitchCase="3">DNI debe ser numerico</div>
+                    </div>
+                    <label>Contraseña</label>
+                    <input type="password" class="form-control" name="pwd_usuario" [(ngModel)]="user.pwd_usuario"
+                        placeholder="Contraseña" (blur)="onBlurPwdUsuario(user.pwd_usuario)">
+                    <div [ngSwitch]="errorPwdUsuario">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Contraseña muy larga</div>
+                        <div *ngSwitchCase="3">Contraseña debe ser alfanumerica, admite mayusculas y un mínimo de 6
+                            caracteres, no permite caracteres especiales.</div>
+                    </div>
+                    <label>ReContraseña</label>
+                    <input type="password" class="form-control" name="repassword" [(ngModel)]="user.repassword"
+                        placeholder="Repetir Contraseña" (blur)="onBlurRePassword(user.pwd_usuario, user.repassword)">
+                    <div [ngSwitch]="errorRePassrword">
+                        <div *ngSwitchCase="1">Las contraseñas deben ser iguales</div>
+                    </div>
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" name="nombre_usuario" [(ngModel)]="user.nombre_usuario"
+                        placeholder="Nombre" (blur)="onBlurNombreUsuario(user.nombre_usuario)">
+                    <div [ngSwitch]="errorNombreUsuario">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Nombre muy largo</div>
+                        <div *ngSwitchCase="3">Nombre debe ser alfabetico</div>
+                    </div>
+                    <label>Apellido</label>
+                    <input type="text" class="form-control" name="apellido_usuario" [(ngModel)]="user.apellido_usuario"
+                        placeholder="Apellido" (blur)="onBlurApellidoUsuario(user.apellido_usuario)">
+                    <div [ngSwitch]="errorApellidoUsuario">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Apellido muy largo</div>
+                        <div *ngSwitchCase="3">Apellido debe ser alfabetico</div>
+                    </div>
+                    <label>Organismo</label>
+                    <input type="text" class="form-control" name="organismo" [(ngModel)]="user.organismo"
+                        placeholder="Organismo" (blur)="onBlurOrganismo(user.organismo)">
+                    <div [ngSwitch]="errorOrganismo">
+                        <div *ngSwitchCase="1">Debes completar el campo</div>
+                        <div *ngSwitchCase="2">Apellido muy corto</div>
+                    </div>
+                    <label>Provincia</label>
+                    <select class="form-control" name="pcia_usuario" [(ngModel)]="user.pcia_usuario"
+                        (blur)="onBlurPciaUsuario(user.pcia_usuario)">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Capital Federal">Capital Federal</option>
+                        <option value="Catamarca">Catamarca</option>
+                        <option value="Chaco">Chaco</option>
+                        <option value="Chubut">Chubut</option>
+                        <option value="Cordoba">Cordoba</option>
+                        <option value="Corrientes">Corrientes</option>
+                        <option value="Entre Rios">Entre Rios</option>
+                        <option value="Formosa">Formosa</option>
+                        <option value="Jujuy">Jujuy</option>
+                        <option value="La Pampa">La Pampa</option>
+                        <option value="La Rioja">La Rioja</option>
+                        <option value="Mendoza">Mendoza</option>
+                        <option value="Misiones">Misiones</option>
+                        <option value="Neuquen">Neuquen</option>
+                        <option value="Rio Negro">Rio Negro</option>
+                        <option value="Salta">Salta</option>
+                        <option value="San Juan">San Juan</option>
+                        <option value="San Luis">San Luis</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Santa Fe">Santa Fe</option>
+                        <option value="Santiago del Estero">Santiago del Estero</option>
+                        <option value="Tierra del Fuego">Tierra del Fuego</option>
+                        <option value="Tucuman">Tucuman</option>
+                    </select>
+                    <div [ngSwitch]="errorPciaUsuario">
+                        <div *ngSwitchCase="1">Debe seleccionar una Provincia</div>
+                    </div>
+                    <label>Perfil</label>
+                    <select class="form-control" name="perfil_usuario" [(ngModel)]="user.perfil_usuario"
+                        (blur)="onBlurPerfilUsuario(user.perfil_usuario)">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Usuario">Usuario</option>
+                    </select>
+                    <div [ngSwitch]="errorPerfilUsuario">
+                        <div *ngSwitchCase="1">Debe seleccionar un Perfil</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" (click)="verificarForm()">Guardar</button>
+            </form>
         </div>
-    </tbody>  
+    </div>
     <table class="table table-light table-striped table-hover">
         <thead class="thead-dark">
-            <th>ID</th>
-            <th>Usuario</th>
+            <th>Dni</th>
+            <th>Contraseña</th>
             <th>Nombre</th>
             <th>Apellido</th>
-            <th>Contraseña</th>
-            <th>Email</th>            
+            <th>Organismo</th>
+            <th>Provincia</th>
             <th>Perfil</th>
             <th>Accion</th>
         </thead>
         <tbody *ngIf="usuarios.length > 0; else fila">
             <tr *ngFor=" let usuario of usuarios">
-                <td><input class="form-control" type="number" name="id" [(ngModel)]="usuario.Id" readonly></td>
-                <td><input class="form-control" type="text" name="usuario" [(ngModel)]="usuario.Usuario"></td>
-                <td><input class="form-control" type="text" name="nombre" [(ngModel)]="usuario.Nombre"></td>
-                <td><input class="form-control" type="text" name="apellido" [(ngModel)]="usuario.Apellido"></td>
-                <td><input class="form-control" type="password" name="npass" [(ngModel)]="usuario.NPass" placeholder="Ingrese la nueva clave"></td>
-                <td><input class="form-control" type="email" name="email" [(ngModel)]="usuario.Email"></td>
-                <td><select name="perfil" [(ngModel)]="usuario.Perfil" placeholder="Perfil"class="form-control">                    
-                    <option value="Admin">Admin</option>
-                    <option value="Usuario">Usuario</option>
-                </select>
+                <td><input class="form-control" type="number" name="dni_usuario" [(ngModel)]="usuario.dni_usuario"
+                        readonly></td>
+                <td><input class="form-control" type="password" name="npass" [(ngModel)]="usuario.NPass"
+                        placeholder="Ingrese la nueva clave"></td>
+                <td><input class="form-control" type="text" name="nombre_usuario" [(ngModel)]="usuario.nombre_usuario">
+                </td>
+                <td><input class="form-control" type="text" name="apellido_usuario"
+                        [(ngModel)]="usuario.apellido_usuario"></td>
+                <td><input class="form-control" type="text" name="organismo" [(ngModel)]="usuario.organismo"></td>
+                <td><select name="pcia_usuario" [(ngModel)]="usuario.pcia_usuario" class="form-control">
+                        <option value="" selected>Seleccionar</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Capital Federal">Capital Federal</option>
+                        <option value="Catamarca">Catamarca</option>
+                        <option value="Chaco">Chaco</option>
+                        <option value="Chubut">Chubut</option>
+                        <option value="Cordoba">Cordoba</option>
+                        <option value="Corrientes">Corrientes</option>
+                        <option value="Entre Rios">Entre Rios</option>
+                        <option value="Formosa">Formosa</option>
+                        <option value="Jujuy">Jujuy</option>
+                        <option value="La Pampa">La Pampa</option>
+                        <option value="La Rioja">La Rioja</option>
+                        <option value="Mendoza">Mendoza</option>
+                        <option value="Misiones">Misiones</option>
+                        <option value="Neuquen">Neuquen</option>
+                        <option value="Rio Negro">Rio Negro</option>
+                        <option value="Salta">Salta</option>
+                        <option value="San Juan">San Juan</option>
+                        <option value="San Luis">San Luis</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Santa Fe">Santa Fe</option>
+                        <option value="Santiago del Estero">Santiago del Estero</option>
+                        <option value="Tierra del Fuego">Tierra del Fuego</option>
+                        <option value="Tucuman">Tucuman</option>
+                    </select>
+                </td>
+                <td><select name="perfil" [(ngModel)]="usuario.perfil_usuario" placeholder="Perfil"
+                        class="form-control">
+                        <option value="Admin">Admin</option>
+                        <option value="Usuario">Usuario</option>
+                    </select>
                 </td>
                 <td><button class="btn btn-info mr-3" type="submit" (click)="editar(usuario)">Editar</button>
-                    <button class="btn btn-danger" type="submit" (click)="eliminar(usuario)">Eliminar</button></td>
+                    <button class="btn btn-danger" type="submit" (click)="eliminar(usuario)">Eliminar</button>
+                </td>
             </tr>
         </tbody>
         <ng-template #fila>
@@ -51,65 +183,6 @@
             </tbody>
         </ng-template>
     </table>
-    <a class="btn btn-success mr-3" id="botones" href="#agregar" data-toggle="collapse">Agregar</a>
-    <div class="card-body" id="label">              
-        <div id="agregar" class="collapse">
-            <h4>Nuevo Usuario</h4>
-            <form (submit)="registrar()">
-                <div class="form-group">
-                    <label>Usuario</label>
-                    <input type="text" class="form-control" name="usuario" [(ngModel)]="user.usuario" placeholder="Usuario" (blur)="onBlurUsuario(user.usuario)">                    
-                    <div [ngSwitch]="errorUsuario">
-                        <div *ngSwitchCase="1">Debes completar el campo</div>
-                        <div *ngSwitchCase="2">Usuario muy largo</div>
-                        <div *ngSwitchCase="3">Usuario debe ser alfabetico</div>
-                    </div>
-                    <label>Nombre</label>
-                    <input type="text" class="form-control" name="Nombre" [(ngModel)]="user.nombre" placeholder="Nombre" (blur)="onBlurNombre(user.nombre)">
-                    <div [ngSwitch]="errorNombre">
-                        <div *ngSwitchCase="1">Debes completar el campo</div>
-                        <div *ngSwitchCase="2">Nombre muy largo</div>
-                        <div *ngSwitchCase="3">Nombre debe ser alfabetico</div>
-                    </div>
-                    <label>Apellido</label>
-                    <input type="text" class="form-control" name="apellido" [(ngModel)]="user.apellido" placeholder="Apellido" (blur)="onBlurApellido(user.apellido)">
-                    <div [ngSwitch]="errorApellido">
-                        <div *ngSwitchCase="1">Debes completar el campo</div>
-                        <div *ngSwitchCase="2">Apellido muy largo</div>
-                        <div *ngSwitchCase="3">Apellido debe ser alfabetico</div>
-                    </div>
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="password" [(ngModel)]="user.password" placeholder="Contraseña" (blur)="onBlurPassword(user.password)">
-                    <div [ngSwitch]="errrorPassword">
-                        <div *ngSwitchCase="1">Debes completar el campo</div>
-                        <div *ngSwitchCase="2">Contraseña muy larga</div>
-                        <div *ngSwitchCase="3">Contraseña debe ser alfanumerica, admite mayusculas y un mínimo de 6 caracteres, no permite caracteres especiales.</div>
-                    </div>
-                    <label>RePassword</label>
-                    <input type="password" class="form-control" name="repassword" [(ngModel)]="user.repassword" placeholder="Repetir Contraseña" (blur)="onBlurRePassword(user.password, user.repassword)">
-                    <div [ngSwitch]="errorRePassrword">
-                        <div *ngSwitchCase="1">Las contraseñas deben ser iguales</div>
-                    </div>
-                    <label>Email</label>
-                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email" placeholder="Email" (blur)="onBlurEmail(user.email)">
-                    <div [ngSwitch]="errorEmail">
-                        <div *ngSwitchCase="1">Debes completar el campo</div>
-                        <div *ngSwitchCase="2">Email muy largo</div>
-                        <div *ngSwitchCase="3">Email debe ser nombre@dominio.algo .</div>
-                    </div>
-                    <label>Perfil</label>                    
-                    <select class="form-control" name="perfil" [(ngModel)]="user.perfil" (blur)="onBlurRol(user.perfil)">
-                        <option value="" selected>Seleccionar</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Usuario">Usuario</option>
-                    </select>
-                    <div [ngSwitch]="errorPerfil">
-                        <div *ngSwitchCase="1">Debe seleccionar un Perfil</div>
-                    </div>              
-                </div>                
-                <button class="btn btn-primary" (click)="verificarForm()">Guardar</button>                
-            </form>        
-        </div>    
-    </div>
-    <button class="btn btn-dark mr-3" id="botones2" routerLink="../../usuarios/home">Volver</button>        
+    <br>
+    <button class="btn btn-dark mr-3" id="botones2" routerLink="../../usuarios/home">Volver</button>
 </body>

@@ -47,6 +47,7 @@ export class UsuariosService{
 	}
 	
 	eliminarUsuario(id:string){
+		//console.log(id);
 		return this.http.delete(`${this.API_URI}/delete/${id}`);
 	}
 	//FIN ABM		

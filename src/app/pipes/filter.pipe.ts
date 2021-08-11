@@ -9,7 +9,7 @@ export class FilterPipe implements PipeTransform {
     if(arg === '' || arg.Length < 3) return value;
     const resultUsuarios = [];
     for(const usuario of value){
-      if(usuario.Usuario.toLowerCase().indexOf(arg.toLowerCase()) > -1){
+      if(usuario.apellido_usuario.toLowerCase().indexOf(arg.toLowerCase()) > -1){
         resultUsuarios.push(usuario);
       };
     };

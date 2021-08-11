@@ -10,12 +10,11 @@ import {Router} from '@angular/router';
 })
 export class UsuariosIngresarComponent implements OnInit {
 
-  user={  Usuario:"", Email:"", Password:""}; //defino la variable
+  user={  dni_usuario:"", pwd_usuario:""}; //defino la variable
   reintentar:boolean=false;
   mensaje:string="";
-  errorUsuario=0;
-  errorEmail=0;
-  errorPassword=0;
+  errorDniUsuario=0;
+  errorPwdUsuario=0;
   error:boolean = false;
   
 	constructor(private usuariosService: UsuariosService, private router:Router) { } //defino la variable usuariosService como un objeto UsuariosService segun se importo
@@ -51,67 +50,50 @@ export class UsuariosIngresarComponent implements OnInit {
 	}
 
   verificarForm():boolean{
-    this.errorUsuario=this.verificarUsuario(this.user.Usuario);
-    this.errorEmail=this.verificarEmail(this.user.Email);
-    this.errorPassword=this.verificarPassword(this.user.Password);
-    if((this.errorUsuario+this.errorEmail+this.errorPassword)>0){
+    this.errorDniUsuario=this.verificarDniUsuario(this.user.dni_usuario);
+    this.errorPwdUsuario=this.verificarPwdUsuario(this.user.pwd_usuario);
+    if((this.errorDniUsuario+this.errorPwdUsuario)>0){
       this.error = true;
       return false;
     }
     return true;
   }
 
-  verificarUsuario(usuario:string):number {    
-    const patron=/^[a-zA-Z]{2,20}$/;
-    if(usuario.length==0)
+  verificarDniUsuario(dni_usuario:string):number {    
+    const patron=/^([0-9])*$/;
+    if(dni_usuario.length==0)
       return 1;
-    if(usuario.length>20)
+    if(dni_usuario.length>20)
       return 2;
-    if(!patron.test(usuario))
+    if(!patron.test(dni_usuario))
       return 3;
     return 0;
   }
 
-  onBlurUsuario(event: any){    
-    this.errorUsuario=this.verificarUsuario(event);  
+  onBlurDniUsuario(event: any){    
+    this.errorDniUsuario=this.verificarDniUsuario(event);  
   }
 
-  verificarEmail(email:string):number {    
-    const patron=/^[a-z0-9\_\_.]{1,30}@[a-z0-9]{1,10}\.[a-z]{2,3}/;
-    if(email.length==0)
-      return 1;
-    if(email.length>50)
-      return 2;
-    if(!patron.test(email))
-      return 3;
-    return 0;
-  }
-
-  onBlurEmail(email: any){    
-    this.errorEmail=this.verificarEmail(email);
-  }
-  
-  verificarPassword(password:any): number {    
+  verificarPwdUsuario(pwd_usuario:any): number {    
     //const patron=/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/;
-    if(password.length==0)
+    if(pwd_usuario.length==0)
       return 1;
-    if(password.length>20)
+    if(pwd_usuario.length>20)
       return 2;
-    /*if(!patron.test(password))
+    /*if(!patron.test(pwd_usuario))
       return 3;
       */
     return 0;
   }
   
-  onBlurPassword(passqord: any){    
-    this.errorPassword=this.verificarPassword(passqord);
+  onBlurPwdUsuario(passqord: any){    
+    this.errorPwdUsuario=this.verificarPwdUsuario(passqord);
   }
 
   recargarForm(){
     this.reintentar=false;
-    this.user.Usuario="";
-    this.user.Email="";
-    this.user.Password="";
+    this.user.dni_usuario="";   
+    this.user.pwd_usuario="";
 	  this.mensaje="";
   }
 

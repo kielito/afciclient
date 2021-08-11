@@ -19,7 +19,7 @@ export class NavigationComponent implements OnInit {
       this.logueado = this.usuariosService.isLoggedIn();
       if (localStorage.usuario) {
         var usuario = JSON.parse(localStorage.usuario);
-        this.perfil = usuario.Perfil;
+        this.perfil = usuario.perfil_usuario;
       }
     });
 

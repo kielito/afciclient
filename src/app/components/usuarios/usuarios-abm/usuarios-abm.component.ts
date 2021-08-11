@@ -8,16 +8,17 @@ import { UsuariosService } from '../../../services/usuarios.service';
 })
 export class UsuariosAbmComponent implements OnInit {
 
-  user={  usuario:"", nombre:"", apellido:"", email:"", password:"",repassword:"", perfil:""};  
+  user={  dni_usuario:"", pwd_usuario:"", repassword:"", nombre_usuario:"", apellido_usuario:"", organismo:"", pcia_usuario:"", perfil_usuario:""};  
   usuarios:any = []; //variable del componente, disponible para todas las clases (la puedo usar desde el HTML)
   revelar:boolean= true; //para mostrar (true) u ocultar (false) en el formulario  
-  errorUsuario=0;
-  errorNombre=0;
-  errorApellido=0;
-  errrorPassword=0;
+  errorDniUsuario=0;
+  errorPwdUsuario=0;
   errorRePassrword=0;
-  errorEmail=0;
-  errorPerfil=0;
+  errorNombreUsuario=0;
+  errorApellidoUsuario=0; 
+  errorOrganismo=0;
+  errorPciaUsuario=0;
+  errorPerfilUsuario=0;
   confirmacion:boolean = false;
   error:boolean = false;
   mensaje = "";
@@ -38,19 +39,22 @@ export class UsuariosAbmComponent implements OnInit {
   }
 
   registrar(){		
+    this.confirmacion=false;
+    this.error=false;
     this.usuariosService.registrar(this.user).subscribe(
-      res => {        
+      res => {     
+        this.ngOnInit();    
         this.mensaje = "agregado";
         this.confirmacion=true;
-        this.recargarForm();
+        this.recargarForm();    
+           
       },
       err => {
         this.error=true;
         this.mensaje = err.error.message;
-      }
-    )
+      }      
+    )  
     
-    this.ngOnInit(); 
   }
 
   editar(usuario:any){
@@ -61,7 +65,7 @@ export class UsuariosAbmComponent implements OnInit {
       this.error=true;
     } else {    
       
-      this.usuariosService.actualizarUsuario(usuario.Id, usuario).subscribe(
+      this.usuariosService.actualizarUsuario(usuario.dni_usuario, usuario).subscribe(
         res => {        
           this.ngOnInit();
           this.mensaje = "actualizado";
@@ -73,132 +77,175 @@ export class UsuariosAbmComponent implements OnInit {
         }
       )
     }
+    //this.ngOnInit();
   }
+
+
+
 
   eliminar(usuario:any){
     this.confirmacion=false;
     this.error=false;
-    this.usuariosService.eliminarUsuario(usuario.Id).subscribe(
+    this.usuariosService.eliminarUsuario(usuario.dni_usuario).subscribe(
       res => {
+        this.ngOnInit();
         this.mensaje = "eliminado";
-        this.confirmacion=true;
+        this.confirmacion=true;        
       },
       err => {
         this.error=true;
         this.mensaje = err.error.message;
       }
-    )
-    this.ngOnInit();
+    )    
   }
 
   verificarForm():boolean{    
-    this.errorUsuario=this.verificarUsuario(this.user.usuario);
-    this.errorNombre=this.verificarNombre(this.user.nombre);
-    this.errorApellido=this.verificarApellido(this.user.apellido);
-    this.errrorPassword=this.verificarPassword(this.user.password);
-    this.errorRePassrword=this.verificarRePassword(this.user.password, this.user.repassword);
-    this.errorEmail=this.verificarEmail(this.user.email);
-    this.errorPerfil=this.verificarRol(this.user.perfil);
-
-    if(  (this.errorUsuario+this.errorNombre+this.errorApellido+this.errrorPassword+this.errorRePassrword+this.errorEmail+this.errorPerfil)>0){
+    this.errorDniUsuario=this.verificarDniUsuario(this.user.dni_usuario);
+    this.errorPwdUsuario=this.verificarPwdUsuario(this.user.pwd_usuario);
+    this.errorRePassrword=this.verificarRePassword(this.user.pwd_usuario, this.user.repassword);    
+    this.errorNombreUsuario=this.verificarNombreUsuario(this.user.nombre_usuario);
+    this.errorApellidoUsuario=this.verificarApellidoUsuario(this.user.apellido_usuario);    
+    this.errorOrganismo=this.verificarOrganismo(this.user.organismo);
+    this.errorPciaUsuario=this.verificarPciaUsuario(this.user.pcia_usuario);
+    this.errorPerfilUsuario=this.verificarPerfilUsuario(this.user.perfil_usuario);
+    if(  (this.errorDniUsuario+this.errorPwdUsuario+this.errorRePassrword+this.errorNombreUsuario+this.errorApellidoUsuario+this.errorOrganismo+this.errorPciaUsuario+this.errorPerfilUsuario)>0){
       return false;
     }
     return true;
   }
 
   verificarEdit(usuario:any):boolean{    
-    this.errorUsuario=this.verificarUsuario(usuario.Usuario);
-    this.errorNombre=this.verificarNombre(usuario.Nombre);
-    this.errorApellido=this.verificarApellido(usuario.Apellido);    
-    this.errorEmail=this.verificarEmail(usuario.Email);
-    this.errorPerfil=this.verificarRol(usuario.Perfil);
+    this.errorDniUsuario=this.verificarDniUsuario(this.user.dni_usuario);     
+    this.errorNombreUsuario=this.verificarNombreUsuario(this.user.nombre_usuario);
+    this.errorApellidoUsuario=this.verificarApellidoUsuario(this.user.apellido_usuario);    
+    this.errorOrganismo=this.verificarOrganismo(this.user.organismo);
+    this.errorPciaUsuario=this.verificarPciaUsuario(this.user.pcia_usuario);
+    this.errorPerfilUsuario=this.verificarPerfilUsuario(this.user.perfil_usuario);
 
     if(usuario.NPass)
     {
-      this.errrorPassword=this.verificarPassword(usuario.NPass);
-      if(  (this.errorUsuario+this.errorNombre+this.errorApellido+this.errrorPassword+this.errorEmail+this.errorPerfil)>0){
+      this.errorPwdUsuario=this.verificarPwdUsuario(usuario.NPass);
+      if(  (this.errorDniUsuario+this.errorPwdUsuario+this.errorNombreUsuario+this.errorApellidoUsuario+this.errorOrganismo+this.errorPciaUsuario+this.errorPerfilUsuario)>0){
         return false;
       }
       return true;
     } else {
-      if( (this.errorUsuario+this.errorNombre+this.errorApellido+this.errorEmail+this.errorPerfil)>0){
+      if( (this.errorDniUsuario+this.errorNombreUsuario+this.errorApellidoUsuario+this.errorOrganismo+this.errorPciaUsuario+this.errorPerfilUsuario)>0){
         return false;
       }
       return true;
     }
   }
 
-  verificarUsuario(usuario:string):number {
-    const patron=/^[a-zA-Z]{2,20}$/;
-    if(usuario.length==0)
+  verificarDniUsuario(dni_usuario:string):number {
+    const patron=/^([0-9])*$/;
+    if(dni_usuario.length==0)
       return 1;
-    if(usuario.length>20)
+    if(dni_usuario.length>20)
       return 2;
-    if(!patron.test(usuario))
+    if(!patron.test(dni_usuario))
       return 3;
     return 0;
   }
 
-  onBlurUsuario(event: any){    
-    this.errorUsuario=this.verificarUsuario(event);  
+  onBlurDniUsuario(event: any){    
+    this.errorDniUsuario=this.verificarDniUsuario(event);  
   }
  
-  verificarNombre(nombre:string):number {
-    const patron=/^[a-zA-Z]{2,20}$/;
-    if(nombre.length==0)
-      return 1;
-    if(nombre.length>20)
-      return 2;
-    if(!patron.test(nombre))
-      return 3;
-    return 0;
-  }
-  
-  onBlurNombre(nombre: any){    
-    this.errorNombre=this.verificarNombre(nombre);    
-  }
-
-  verificarApellido(apellido:string):number {
-    const patron=/^[a-zA-Z]{2,20}$/;
-    if(apellido.length==0)
-      return 1;
-    if(apellido.length>20)
-      return 2;
-    if(!patron.test(apellido))
-      return 3;
-    return 0;
-  }
-
-  onBlurApellido(apellido: any){    
-    this.errorApellido=this.verificarApellido(apellido);
-  }
-  
-  verificarPassword(password:any): number {
+  verificarPwdUsuario(pwd_usuario:any): number {
     const patron=/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{6,20}$/;
-    if(password.length==0)
+    if(pwd_usuario.length==0)
       return 1;
-    if(password.length>20)
+    if(pwd_usuario.length>20)
       return 2;
-    if(!patron.test(password))
+    if(!patron.test(pwd_usuario))
       return 3;
     return 0;
   }
 
-  onBlurPassword(passqord: any){    
-    this.errrorPassword=this.verificarPassword(passqord);
+  onBlurPwdUsuario(pwd_usuario: any){    
+    this.errorPwdUsuario=this.verificarPwdUsuario(pwd_usuario);
   }
   
-  verificarRePassword(password:any, repassword:any): number {
-    if(password!=repassword){
+  verificarRePassword(pwd_usuario:any, repassword:any): number {
+    if(pwd_usuario!=repassword){
       return 1;
     }
     return 0;
   }
   
-  onBlurRePassword(password: any, repassword: any){    
-    this.errorRePassrword=this.verificarRePassword(password, repassword);
+  onBlurRePassword(pwd_usuario: any, repassword: any){    
+    this.errorRePassrword=this.verificarRePassword(pwd_usuario, repassword);
+  }
+ 
+  verificarNombreUsuario(nombre_usuario:string):number {
+    const patron=/^[a-zA-Z]{2,20}$/;
+    if(nombre_usuario.length==0)
+      return 1;
+    if(nombre_usuario.length>20)
+      return 2;
+    if(!patron.test(nombre_usuario))
+      return 3;
+    return 0;
   }
   
+  onBlurNombreUsuario(nombre_usuario: any){    
+    this.errorNombreUsuario=this.verificarNombreUsuario(nombre_usuario);    
+  }
+
+  verificarApellidoUsuario(apellido_usuario:string):number {
+    const patron=/^[a-zA-Z]{2,20}$/;
+    if(apellido_usuario.length==0)
+      return 1;
+    if(apellido_usuario.length>20)
+      return 2;
+    if(!patron.test(apellido_usuario))
+      return 3;
+    return 0;
+  }
+
+  onBlurApellidoUsuario(apellido_usuario: any){    
+    this.errorApellidoUsuario=this.verificarApellidoUsuario(apellido_usuario);
+  }
+ 
+  verificarOrganismo(organismo:any): number {
+    const patron=/^[a-zA-Z]{2,20}$/;
+    if(organismo.length==0)
+      return 1;
+    if(organismo.length>50)
+      return 2;
+    if(!patron.test(organismo))
+      return 3;
+    return 0;
+  }
+
+  onBlurOrganismo(organismo: any){    
+    this.errorOrganismo=this.verificarOrganismo(organismo);
+  }   
+
+  verificarPciaUsuario(pcia_usuario:any): number {
+    if(pcia_usuario!="Buenos Aires" && pcia_usuario!="Capital Federal" && pcia_usuario!="Catamarca" && pcia_usuario!="Chaco" && pcia_usuario!="Chubut" && pcia_usuario!="Cordoba" && pcia_usuario!="Corrientes" && pcia_usuario!="Entre Rios" && pcia_usuario!="Formosa" && pcia_usuario!="Jujuy" && pcia_usuario!="La Pampa" && pcia_usuario!="La Rioja" && pcia_usuario!="Mendoza" && pcia_usuario!="Misiones" && pcia_usuario!="Neuquen" && pcia_usuario!="Rio Negro" && pcia_usuario!="Salta" && pcia_usuario!="San Juan" && pcia_usuario!="San Luis" && pcia_usuario!="Santa Cruz" && pcia_usuario!="Santa Fe" && pcia_usuario!="Santiago del Estero" && pcia_usuario!="Tierra del Fuego" && pcia_usuario!="Tucuman"){
+      return 1;
+    }
+    return 0;
+  }
+
+  onBlurPciaUsuario(pcia_usuario: any){    
+    this.errorPciaUsuario=this.verificarPciaUsuario(pcia_usuario);
+  }
+
+  verificarPerfilUsuario(perfil_usuario:any): number {
+    if(perfil_usuario!="Admin" && perfil_usuario!="Usuario"){
+      return 1;
+    }
+    return 0;
+  }
+
+  onBlurPerfilUsuario(perfil_usuario: any){    
+    this.errorPerfilUsuario=this.verificarPerfilUsuario(perfil_usuario);
+  }
+
+  /*
   verificarEmail(email:any): number {
     const patron=/^[a-z0-9\_\_.]{1,30}@[a-z0-9]{1,10}\.[a-z]{2,3}/;
     if(email.length==0)
@@ -213,50 +260,26 @@ export class UsuariosAbmComponent implements OnInit {
   onBlurEmail(email: any){    
     this.errorEmail=this.verificarEmail(email);
   }
-
-  verificarRol(perfil:any): number {
-    if(perfil!="Admin" && perfil!="Usuario"){
-      return 1;
-    }
-    return 0;
-  }
-
-  onBlurRol(rol: any){    
-    this.errorPerfil=this.verificarRol(rol);
-  }
+  */
 
   limpiarDatos(){
-    this.limpiarUsuario();
-    this.limpiarNombre();
-    this.limpiarApellido();
-    this.limpiarPassword();
+    this.limpiarDniUsuario();
+    this.limpiarPwdUsuario();
     this.limpiarRePassword();
-    this.limpiarEmail();
+    this.limpiarNombreUsuario();
+    this.limpiarApellidoUsuario();
+    this.limpiarOrganismo();
   }
 
-  limpiarUsuario() {    
-    this.user.usuario = "";
-    this.errorUsuario = 0;    
+  limpiarDniUsuario() {    
+    this.user.dni_usuario = "";
+    this.errorDniUsuario = 0;    
   }
 
-  limpiarNombre() {
-    if (this.errorNombre > 0) {
-      this.user.nombre = "";
-      this.errorNombre = 0;
-    }
-  }
-
-  limpiarApellido() {
-    if (this.errorApellido > 0) {
-      this.user.apellido = "";
-      this.errorApellido = 0;
-    }
-  }
-
-  limpiarPassword() {
-    if (this.errrorPassword > 0) {
-      this.user.password = "";
-      this.errrorPassword = 0;
+  limpiarPwdUsuario() {
+    if (this.errorPwdUsuario > 0) {
+      this.user.pwd_usuario = "";
+      this.errorPwdUsuario = 0;
     }
   }
 
@@ -265,23 +288,36 @@ export class UsuariosAbmComponent implements OnInit {
       this.user.repassword = "";
       this.errorRePassrword = 0;
     }
-
   }
 
-  limpiarEmail() {
-    if(this.errorEmail>0){
-      this.user.email = "";
-      this.errorEmail = 0;
+  limpiarNombreUsuario() {
+    if (this.errorNombreUsuario > 0) {
+      this.user.nombre_usuario = "";
+      this.errorNombreUsuario = 0;
+    }
+  }
+
+  limpiarApellidoUsuario() {
+    if (this.errorApellidoUsuario > 0) {
+      this.user.apellido_usuario = "";
+      this.errorApellidoUsuario = 0;
+    }
+  }  
+
+  limpiarOrganismo() {
+    if(this.errorOrganismo>0){
+      this.user.organismo = "";
+      this.errorOrganismo = 0;
     }
   }
 
   recargarForm(){    
-    this.user.usuario="";
-    this.user.nombre="";
-    this.user.apellido="";
-    this.user.password="";
+    this.user.dni_usuario="";
+    this.user.pwd_usuario="";
     this.user.repassword="";
-    this.user.email="";
+    this.user.nombre_usuario="";
+    this.user.apellido_usuario="";    
+    this.user.organismo="";
 	  this.mensaje="";
   }
 

@@ -6,14 +6,12 @@ interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
 }
 
-
 @Component({
   selector: 'app-usuarios-home',
   templateUrl: './usuarios-home.component.html',
   styleUrls: ['./usuarios-home.component.css']
 })
 export class UsuariosHomeComponent implements OnInit {
-
   archivoSeleccionado:any;
   file:any;
   admin:Boolean=false;
@@ -25,12 +23,11 @@ export class UsuariosHomeComponent implements OnInit {
     this.usuariosService.logued$.emit();
     this.usuario = JSON.parse(localStorage.usuario);
     
-    if(this.usuario.Perfil==="Admin")							
+    if(this.usuario.perfil_usuario==="Admin")							
 		  this.admin = true;
     else
 		  this.admin = false;      
   }
-
 
   SeleccionArchivo(event: any): void{
     if(event.target.files && event.target.files[0]){
@@ -48,6 +45,4 @@ export class UsuariosHomeComponent implements OnInit {
     //Es de notar que la redireccion del metodo logOut podria haberse hecho aqui y dejar el servicio lo mas acotado posible.
     this.usuariosService.logOut();
   }
-
 }
-

@@ -14,7 +14,7 @@ export class AdminGuard implements CanActivate {
 	{
 		var usuario = JSON.parse(localStorage.usuario);
 
-		if(usuario.Perfil==="Admin")
+		if(usuario.perfil_usuario==="Admin")
 		{						
 			return true;
 		}
