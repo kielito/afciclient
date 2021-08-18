@@ -15,6 +15,8 @@ import { AdminGuard } from './admin.guard';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { UsuariosAbmComponent } from './components/usuarios/usuarios-abm/usuarios-abm.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { DeclaracionAbmComponent } from './components/declaracion/declaracion-abm/declaracion-abm.component';
+import { DeclaracionListarComponent } from './components/declaracion/declaracion-listar/declaracion-listar.component';
 
 @NgModule({ //Clase
   declarations: [
@@ -24,7 +26,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     UsuariosListarComponent,
     UsuariosPrincipalComponent,
     UsuariosHomeComponent,   
-    UsuariosAbmComponent, FilterPipe
+    UsuariosAbmComponent, FilterPipe, DeclaracionAbmComponent, DeclaracionListarComponent
   ],
   imports: [ //Seccion
     BrowserModule,

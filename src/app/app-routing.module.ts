@@ -5,6 +5,11 @@ import { UsuariosIngresarComponent } from "./components/usuarios/usuarios-ingres
 import { UsuariosPrincipalComponent } from "./components/usuarios/usuarios-principal/usuarios-principal.component";
 import { UsuariosHomeComponent } from "./components/usuarios/usuarios-home/usuarios-home.component";
 import { UsuariosAbmComponent} from "./components/usuarios/usuarios-abm/usuarios-abm.component";
+
+import { DeclaracionAbmComponent } from "./components/declaracion/declaracion-abm/declaracion-abm.component";
+import { DeclaracionListarComponent } from "./components/declaracion/declaracion-listar/declaracion-listar.component";
+
+
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './admin.guard';
 
@@ -14,7 +19,6 @@ const routes: Routes = [
 		redirectTo: 'usuarios/principal',
 		pathMatch: 'full'
 	},
-
 	//USUARIOS	
 	{
 		path: 'usuarios/listar',
@@ -38,7 +42,18 @@ const routes: Routes = [
 		path: 'usuarios/abmusuarios',
 		component: UsuariosAbmComponent,
 		canActivate: [AuthGuard, AdminGuard]
-	}	
+	},
+	// DECLARACION
+	{
+		path: 'declaracion/abmdeclaraciones',
+		component: DeclaracionAbmComponent,
+		canActivate: [AuthGuard, AdminGuard]
+	},	
+	{
+		path: 'declaracion/listar',
+		component: DeclaracionListarComponent,
+		canActivate: [AuthGuard, AdminGuard]
+	}
 ];
 
 @NgModule({
