@@ -14,17 +14,7 @@ export class DeclaracionAbmComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuariosService.logued$.emit();
-    /*
-    this.declaracionService.listarProveedor().subscribe(
-      res => {
-        //this.proveedores = res;        
-      },
-			err => console.log(err)
-		)
     
-    this.confirmacion=false;
-    this.error=false;
-    */
   }
 
 }
