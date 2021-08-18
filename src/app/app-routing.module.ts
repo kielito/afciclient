@@ -9,6 +9,9 @@ import { UsuariosAbmComponent} from "./components/usuarios/usuarios-abm/usuarios
 import { DeclaracionAbmComponent } from "./components/declaracion/declaracion-abm/declaracion-abm.component";
 import { DeclaracionListarComponent } from "./components/declaracion/declaracion-listar/declaracion-listar.component";
 
+import { InformeAbmComponent } from "./components/informe/informe-abm/informe-abm.component";
+import { InformeListarComponent } from "./components/informe/informe-listar/informe-listar.component";
+
 
 import { AuthGuard } from './auth.guard';
 import { AdminGuard } from './admin.guard';
@@ -52,6 +55,18 @@ const routes: Routes = [
 	{
 		path: 'declaracion/listar',
 		component: DeclaracionListarComponent,
+		canActivate: [AuthGuard, AdminGuard]
+	}
+	,
+	// INFORME
+	{
+		path: 'informe/abminformes',
+		component: InformeAbmComponent,
+		canActivate: [AuthGuard, AdminGuard]
+	},	
+	{
+		path: 'informe/listar',
+		component: InformeListarComponent,
 		canActivate: [AuthGuard, AdminGuard]
 	}
 ];

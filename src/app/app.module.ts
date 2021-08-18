@@ -17,6 +17,8 @@ import { UsuariosAbmComponent } from './components/usuarios/usuarios-abm/usuario
 import { FilterPipe } from './pipes/filter.pipe';
 import { DeclaracionAbmComponent } from './components/declaracion/declaracion-abm/declaracion-abm.component';
 import { DeclaracionListarComponent } from './components/declaracion/declaracion-listar/declaracion-listar.component';
+import { InformeAbmComponent } from './components/informe/informe-abm/informe-abm.component';
+import { InformeListarComponent } from './components/informe/informe-listar/informe-listar.component';
 
 @NgModule({ //Clase
   declarations: [
@@ -26,7 +28,7 @@ import { DeclaracionListarComponent } from './components/declaracion/declaracion
     UsuariosListarComponent,
     UsuariosPrincipalComponent,
     UsuariosHomeComponent,   
-    UsuariosAbmComponent, FilterPipe, DeclaracionAbmComponent, DeclaracionListarComponent
+    UsuariosAbmComponent, FilterPipe, DeclaracionAbmComponent, DeclaracionListarComponent, InformeAbmComponent, InformeListarComponent
   ],
   imports: [ //Seccion
     BrowserModule,
