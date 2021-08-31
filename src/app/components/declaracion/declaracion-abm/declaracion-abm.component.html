@@ -1,5 +1,21 @@
 <body>
     <div class="container">
+        <tbody *ngIf="confirmacion">
+            <div id="aviso">
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Declaración Jurada {{mensaje}} correctamente!</strong>
+                </div>
+            </div>
+        </tbody>
+        <tbody *ngIf="error">
+            <div id="aviso">
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error: {{mensaje}}</strong>
+                </div>
+            </div>
+        </tbody>
         <div id="accordion">
             <div class="card">
                 <div class="card-header" id="headingOne">
@@ -12,493 +28,606 @@
                 </div>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body" id="label">
-                        <div class="form-row align-items-center">
-                            <div class="container">
-                                <strong>ANEXO I<br>
-                                    DECLARACIÓN JURADA INDIVIDUAL<br>
-                                    MARCAR CON UNA TILDE<br>
-                                    SOLICITUD PARA EL PERMISO DE USO DEL SELLO</strong><br><br>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1"
-                                        name="selloAFCI">
-                                    <label class="form-check-label" for="defaultCheck1">Agricultura Familiar,
-                                        Campesina e
-                                        Indígena</label>
+                        <form (submit)="registrar()">
+                            <div class="form-row align-items-center">
+                                <div class="container">
+                                    <strong>ANEXO I<br>
+                                        DECLARACIÓN JURADA INDIVIDUAL<br>
+                                        MARCAR CON UNA TILDE<br>
+                                        SOLICITUD PARA EL PERMISO DE USO DEL SELLO</strong><br><br>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2"
-                                        name="selloPAFCI">
-                                    <label class="form-check-label" for="defaultCheck2">Producido por la Agricultura
-                                        Familiar,
-                                        Campesina e Indígena</label>
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-control" type="hidden" name="dni_usuario"
+                                            [(ngModel)]="usuario.dni_usuario">
+                                        <input class="form-control" type="hidden" name="pcia_usuario"
+                                            [(ngModel)]="usuario.pcia_usuario">
+
+                                        <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1"
+                                            name="selloAFCI" [(ngModel)]="usuario.selloAFCI">
+                                        <label class="form-check-label" for="defaultCheck1">Agricultura Familiar,
+                                            Campesina e
+                                            Indígena</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="3" id="defaultCheck2"
+                                            name="selloPAFCI" [(ngModel)]="usuario.selloPAFCI">
+                                        <label class="form-check-label" for="defaultCheck2">Producido por la Agricultura
+                                            Familiar,
+                                            Campesina e Indígena</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="container">
-                                <br>
-                                *Se pueden solicitar ambos sellos a través de la misma solicitud, contemplar si se
-                                cumple con
-                                requisitos.
-                                <br>
-                                La presente tiene carácter de Declaración JURADA
-                                <br>
-                                Carácter confidencial y reservado por Ley 17.622, Artículos 10 y 15
-                                <br>
-                                <br>
-                            </div>
-                            <div class="form-group">
-                                <label for="formGroupExampleInput"><strong>Fecha de toma de datos</strong></label>
-                                <input type="date" class="form-control" id="formGroupExampleInput"
-                                    placeholder="Example input">
-                            </div>
-                            <div class="container"><br><strong>DATOS DEL SOLICITANTE</strong><br><br></div>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault01">Nombre</label>
-                                    <input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required>
+                                <div class="container">
+                                    <br>
+                                    *Se pueden solicitar ambos sellos a través de la misma solicitud, contemplar si se
+                                    cumple con
+                                    requisitos.
+                                    <br>
+                                    La presente tiene carácter de Declaración JURADA
+                                    <br>
+                                    Carácter confidencial y reservado por Ley 17.622, Artículos 10 y 15
+                                    <br>
+                                    <br>
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault02">Apellido</label>
-                                    <input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault03">Nacionalidad</label>
-                                    <input type="text" class="form-control" id="validationDefault03"
-                                        placeholder="Nacionalidad" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault04">DNI</label>
-                                    <input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput01"><strong>Fecha de toma de datos</strong></label>
+                                    <input type="date" class="form-control" id="formGroupExampleInput01"
+                                        name="fecha_alta" [(ngModel)]="usuario.fecha_alta" placeholder="Example input"
                                         required>
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">CUIT-CUIL</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="CUIT-CUIL" required>
+                                <div class="container"><br><strong>DATOS DEL SOLICITANTE</strong><br><br></div>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault01">Nombre</label>
+                                        <input type="text" class="form-control" id="validationDefault01"
+                                            name="nombre_solicitante" [(ngModel)]="usuario.nombre_solicitante"
+                                            placeholder="Nombre" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault02">Apellido</label>
+                                        <input type="text" class="form-control" id="validationDefault02"
+                                            name="apellido_solicitante" [(ngModel)]="usuario.apellido_solicitante"
+                                            placeholder="Apellido" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault03">Nacionalidad</label>
+                                        <input type="text" class="form-control" id="validationDefault03"
+                                            name="nacionalidad_solicitante"
+                                            [(ngModel)]="usuario.nacionalidad_solicitante" placeholder="Nacionalidad"
+                                            required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault04">DNI</label>
+                                        <input type="text" class="form-control" id="validationDefault04"
+                                            placeholder="DNI" name="dni_solicitante"
+                                            [(ngModel)]="usuario.dni_solicitante" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault05">CUIT-CUIL</label>
+                                        <input type="text" class="form-control" id="validationDefault05"
+                                            name="cuit_solicitante" placeholder="CUIT-CUIL"
+                                            [(ngModel)]="usuario.cuit_solicitante" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault06">RENAF</label>
+                                        <input type="text" class="form-control" id="validationDefault06"
+                                            name="renaf_solicitante" placeholder="RENAF"
+                                            [(ngModel)]="usuario.renaf_solicitante" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="formGroupExampleInput02">Fecha de Nacimiento</label>
+                                        <input type="date" class="form-control" id="formGroupExampleInput02"
+                                            name="nacimiento_solicitante" [(ngModel)]="usuario.nacimiento_solicitante"
+                                            placeholder="Example input">
+                                    </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">RENAF</label>
-                                    <input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required>
+                                <div class="container"><br><strong>INFORMACION DE CONTACTO</strong><br><br></div>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault07">Direccion</label>
+                                        <input type="text" class="form-control" id="validationDefault07"
+                                            name="direccion_solicitante" [(ngModel)]="usuario.direccion_solicitante"
+                                            placeholder="Direccion" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault08">Localidad</label>
+                                        <input type="text" class="form-control" id="validationDefault08"
+                                            name="localidad_solicitante" [(ngModel)]="usuario.localidad_solicitante"
+                                            placeholder="Localidad" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault09">Provincia</label>
+                                        <select class="form-control" id="validationDefault09"
+                                            name="provincia_solicitante" [(ngModel)]="usuario.provincia_solicitante">
+                                            <option value="" selected>Seleccionar</option>
+                                            <option value="Buenos Aires">Buenos Aires</option>
+                                            <option value="Capital Federal">Capital Federal</option>
+                                            <option value="Catamarca">Catamarca</option>
+                                            <option value="Chaco">Chaco</option>
+                                            <option value="Chubut">Chubut</option>
+                                            <option value="Cordoba">Cordoba</option>
+                                            <option value="Corrientes">Corrientes</option>
+                                            <option value="Entre Rios">Entre Rios</option>
+                                            <option value="Formosa">Formosa</option>
+                                            <option value="Jujuy">Jujuy</option>
+                                            <option value="La Pampa">La Pampa</option>
+                                            <option value="La Rioja">La Rioja</option>
+                                            <option value="Mendoza">Mendoza</option>
+                                            <option value="Misiones">Misiones</option>
+                                            <option value="Neuquen">Neuquen</option>
+                                            <option value="Rio Negro">Rio Negro</option>
+                                            <option value="Salta">Salta</option>
+                                            <option value="San Juan">San Juan</option>
+                                            <option value="San Luis">San Luis</option>
+                                            <option value="Santa Cruz">Santa Cruz</option>
+                                            <option value="Santa Fe">Santa Fe</option>
+                                            <option value="Santiago del Estero">Santiago del Estero</option>
+                                            <option value="Tierra del Fuego">Tierra del Fuego</option>
+                                            <option value="Tucuman">Tucuman</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault10">Codigo Postal</label>
+                                        <input type="text" class="form-control" id="validationDefault10"
+                                            name="codigo_postal_solicitante"
+                                            [(ngModel)]="usuario.codigo_postal_solicitante" placeholder="Codigo Postal"
+                                            required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault11">Latitud</label>
+                                        <input type="text" class="form-control" id="validationDefault11"
+                                            name="latitud_solicitante" [(ngModel)]="usuario.latitud_solicitante"
+                                            placeholder="Latitud" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault12">Longitud</label>
+                                        <input type="text" class="form-control" id="validationDefault12"
+                                            name="longitud_solicitante" [(ngModel)]="usuario.longitud_solicitante"
+                                            placeholder="Longitud" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault13">Telefono Movil</label>
+                                        <input type="number" class="form-control" id="validationDefault13"
+                                            name="tel_movil_solicitante" [(ngModel)]="usuario.tel_movil_solicitante"
+                                            placeholder="Telefono Movil" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault14">Telefono Fijo</label>
+                                        <input type="number" class="form-control" id="validationDefault14"
+                                            name="tel_solicitante" [(ngModel)]="usuario.tel_solicitante"
+                                            placeholder="Telefono Fijo" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault15">Correo Electronico</label>
+                                        <input type="email" class="form-control" id="validationDefault15"
+                                            name="email_solicitante" [(ngModel)]="usuario.email_solicitante"
+                                            placeholder="Correo Electronico" required>
+                                    </div>
                                 </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="formGroupExampleInput">Fecha de Nacimiento</label>
+
+
+
+
+
+                                <div class="container"><br><strong>OTROS INTEGRANTES DEL NAF</strong><br><br></div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>DNI</th>
+                                            <th>RENAF</th>
+                                            <th>Parentesco</th>
+                                            <th>Direccion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="validationDefault16"
+                                                    name="nombre_integrante" placeholder="Nombre" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault17"
+                                                    name="apellido_integrante" placeholder="Apellido" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault18"
+                                                    name="dni_integrante" placeholder="DNI" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault19"
+                                                    name="renaf_integrante" placeholder="RENAF" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault20"
+                                                    name="parentesco_naf" placeholder="Parentesco" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault21"
+                                                    name="domicilio_integrante" placeholder="Direccion" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="validationDefault22"
+                                                    placeholder="Nombre" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault23"
+                                                    placeholder="Apellido" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault24"
+                                                    placeholder="DNI" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault25"
+                                                    placeholder="RENAF" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault26"
+                                                    placeholder="Parentesco" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault27"
+                                                    placeholder="Direccion" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="validationDefault28"
+                                                    placeholder="Nombre" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault29"
+                                                    placeholder="Apellido" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault30"
+                                                    placeholder="DNI" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault31"
+                                                    placeholder="RENAF" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault32"
+                                                    placeholder="Parentesco" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault33"
+                                                    placeholder="Direccion" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="validationDefault34"
+                                                    placeholder="Nombre" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault35"
+                                                    placeholder="Apellido" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault36"
+                                                    placeholder="DNI" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault37"
+                                                    placeholder="RENAF" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault38"
+                                                    placeholder="Parentesco" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault39"
+                                                    placeholder="Direccion" required></td>
+                                        </tr>
+                                        <tr>
+                                            <td><input type="text" class="form-control" id="validationDefault40"
+                                                    placeholder="Nombre" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault41"
+                                                    placeholder="Apellido" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault42"
+                                                    placeholder="DNI" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault43"
+                                                    placeholder="RENAF" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault44"
+                                                    placeholder="Parentesco" required></td>
+                                            <td><input type="text" class="form-control" id="validationDefault45"
+                                                    placeholder="Direccion" required></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+
+                                <div class="container"><br><strong>DESCRIPCION DE LA PRODUCCION</strong><br><br></div>
+                                <div class="container">
+                                    <div class="form-row">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <label>DECIDE LA PRODUCCIÓN QUE REALIZA</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline1" name="decide_produccion"
+                                                class="custom-control-input" [(ngModel)]="usuario.decide_produccion"
+                                                [value]="true">
+                                            <label class="custom-control-label" for="customRadioInline1">Si</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline2" name="decide_produccion"
+                                                class="custom-control-input" [(ngModel)]="usuario.decide_produccion"
+                                                [value]="false">
+                                            <label class="custom-control-label" for="customRadioInline2">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="form-row">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <label>DECIDE LAS VÍAS DE COMERCIALIZACIÓN</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline3" name="decide_comercializacion"
+                                                class="custom-control-input"
+                                                [(ngModel)]="usuario.decide_comercializacion" [value]="true">
+                                            <label class="custom-control-label" for="customRadioInline3">Si</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline4" name="decide_comercializacion"
+                                                class="custom-control-input"
+                                                [(ngModel)]="usuario.decide_comercializacion" [value]="false">
+                                            <label class="custom-control-label" for="customRadioInline4">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="form-row">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <label>ADMINISTRA LOS RECURSOS DE PRODUCCIÓN</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline5" name="administra_recursos"
+                                                class="custom-control-input" [(ngModel)]="usuario.administra_recursos"
+                                                [value]="true">
+                                            <label class="custom-control-label" for="customRadioInline5">Si</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline6" name="administra_recursos"
+                                                class="custom-control-input" [(ngModel)]="usuario.administra_recursos"
+                                                [value]="false">
+                                            <label class="custom-control-label" for="customRadioInline6">No</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="form-row">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <label>TIPO DE PRODUCCIÓN VEGETAL</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline7" name="tipo_vegetal"
+                                                class="custom-control-input" [(ngModel)]="usuario.tipo_vegetal"
+                                                value="1">
+                                            <label class="custom-control-label"
+                                                for="customRadioInline7">Invierno</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline8" name="tipo_vegetal"
+                                                class="custom-control-input" [(ngModel)]="usuario.tipo_vegetal"
+                                                value="2">
+                                            <label class="custom-control-label"
+                                                for="customRadioInline8">Primavera</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline9" name="tipo_vegetal"
+                                                class="custom-control-input" [(ngModel)]="usuario.tipo_vegetal"
+                                                value="3">
+                                            <label class="custom-control-label" for="customRadioInline9">Verano</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline10" name="tipo_vegetal"
+                                                class="custom-control-input" [(ngModel)]="usuario.tipo_vegetal"
+                                                value="4">
+                                            <label class="custom-control-label" for="customRadioInline10">Otoño</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="form-row">
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <label>TIPO DE PRODUCCIÓN ANIMAL</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline11" name="tipo_animal"
+                                                class="custom-control-input" [(ngModel)]="usuario.tipo_animal"
+                                                value="1">
+                                            <label class="custom-control-label"
+                                                for="customRadioInline11">Invierno</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline12" name="tipo_animal"
+                                                class="custom-control-input" [(ngModel)]="usuario.tipo_animal"
+                                                value="2">
+                                            <label class="custom-control-label"
+                                                for="customRadioInline12">Primavera</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline13" name="tipo_animal"
+                                                class="custom-control-input" [(ngModel)]="usuario.tipo_animal"
+                                                value="3">
+                                            <label class="custom-control-label" for="customRadioInline13">Verano</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline14" name="tipo_animal"
+                                                class="custom-control-input" [(ngModel)]="usuario.tipo_animal"
+                                                value="4">
+                                            <label class="custom-control-label" for="customRadioInline14">Otoño</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <br>
+                                    <div class="form-row">
+                                        <label for="validationDefault05"><strong>DESCRIPCIÓN DE PRINCIPAL
+                                                PRODUCCION</strong></label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"
+                                            name="describe_principal" cols="100"
+                                            [(ngModel)]="usuario.describe_principal"></textarea>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <br>
+                                    EN CASO DE DDJJ PARA SELLO “PRODUCIDO POR LA AGRICULTURA FAMILIAR, CAMPESINA E
+                                    INDÍGENA”<br>
+                                    *No completar en caso de no corresponder<br>
+                                </div>
+
+
+
+
+
+
+                                <div class="container"><br><strong>PRODUCTOS PRIMARIOS O VALOR AGREGADO</strong><br><br>
+                                </div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Productos</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select id="inputState" class="form-control" name="tipo_producto">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Valor Agregado</option>
+                                                    <option>Produccion Primaria</option>
+                                                </select></td>
+                                            <td><select id="inputState" class="form-control" name="producto">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Hortalizas</option>
+                                                    <option>Frutas</option>
+                                                    <option>Carnes</option>
+                                                    <option>Pescado</option>
+                                                    <option>Apicultura</option>
+                                                    <option>No Comestibles</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Valor Agregado</option>
+                                                    <option>Produccion Primaria</option>
+                                                </select></td>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Hortalizas</option>
+                                                    <option>Frutas</option>
+                                                    <option>Carnes</option>
+                                                    <option>Pescado</option>
+                                                    <option>Apicultura</option>
+                                                    <option>No Comestibles</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Valor Agregado</option>
+                                                    <option>Produccion Primaria</option>
+                                                </select></td>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Hortalizas</option>
+                                                    <option>Frutas</option>
+                                                    <option>Carnes</option>
+                                                    <option>Pescado</option>
+                                                    <option>Apicultura</option>
+                                                    <option>No Comestibles</option>
+                                                </select></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+
+
+
+                                <div class="container"><br><strong>PUNTO DE VENTA</strong><br><br></div>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault46">Descripcion del Punto de Venta</label>
+                                        <input type="text" class="form-control" id="validationDefault46"
+                                            name="descripcion_pv" [(ngModel)]="usuario.descripcion_pv"
+                                            placeholder="Descripcion" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault47">Direccion</label>
+                                        <input type="text" class="form-control" id="validationDefault47"
+                                            name="direccion_pv" [(ngModel)]="usuario.direccion_pv"
+                                            placeholder="Direccion" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault48">Localidad</label>
+                                        <input type="text" class="form-control" id="validationDefault48"
+                                            name="localidad_pv" [(ngModel)]="usuario.localidad_pv"
+                                            placeholder="Localidad" required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault49">Latitud</label>
+                                        <input type="text" class="form-control" id="validationDefault49"
+                                            name="latitud_pv" [(ngModel)]="usuario.latitud_pv" placeholder="Latitud"
+                                            required>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label for="validationDefault50">Longitud</label>
+                                        <input type="text" class="form-control" id="validationDefault50"
+                                            name="longitud_pv" [(ngModel)]="usuario.longitud_pv" placeholder="Longitud"
+                                            required>
+                                    </div>
+                                </div>
+
+
+
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo</th>
+                                            <th>Productos Ofertados</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Valor Agregado</option>
+                                                    <option>Produccion Primaria</option>
+                                                </select></td>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Hortalizas</option>
+                                                    <option>Frutas</option>
+                                                    <option>Carnes</option>
+                                                    <option>Pescado</option>
+                                                    <option>Apicultura</option>
+                                                    <option>No Comestibles</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Valor Agregado</option>
+                                                    <option>Produccion Primaria</option>
+                                                </select></td>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Hortalizas</option>
+                                                    <option>Frutas</option>
+                                                    <option>Carnes</option>
+                                                    <option>Pescado</option>
+                                                    <option>Apicultura</option>
+                                                    <option>No Comestibles</option>
+                                                </select></td>
+                                        </tr>
+                                        <tr>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Valor Agregado</option>
+                                                    <option>Produccion Primaria</option>
+                                                </select></td>
+                                            <td><select id="inputState" class="form-control">
+                                                    <option selected>Seleccione</option>
+                                                    <option>Hortalizas</option>
+                                                    <option>Frutas</option>
+                                                    <option>Carnes</option>
+                                                    <option>Pescado</option>
+                                                    <option>Apicultura</option>
+                                                    <option>No Comestibles</option>
+                                                </select></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+
+                                <div class="form-group">
+                                    <label for="formGroupExampleInput"><strong>Fecha de Firma</strong></label>
                                     <input type="date" class="form-control" id="formGroupExampleInput"
-                                        placeholder="Example input">
+                                        name="fecha_firma_ddjj" [(ngModel)]="usuario.fecha_firma_ddjj"
+                                        placeholder="Example input" required>
                                 </div>
                             </div>
-                            <div class="container"><br><strong>INFORMACION DE CONTACTO</strong><br><br></div>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault04">Direccion</label>
-                                    <input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">Localidad</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Localidad" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">Provincia</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Provincia" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault04">Codigo Postal</label>
-                                    <input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Codigo Postal" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">Latitud</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Latitud" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">Longitud</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Longitud" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">Telefono Movil</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Telefono Movil" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">Telefono Fijo</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Telefono Fijo" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault05">Correo Electronico</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Correo Electronico" required>
-                                </div>
-                            </div>
-                            <div class="container"><br><strong>OTROS INTEGRANTES DEL NAF</strong><br><br></div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Nombre</th>
-                                        <th>Apellido</th>
-                                        <th>DNI</th>
-                                        <th>RENAF</th>
-                                        <th>Parentesco</th>
-                                        <th>Direccion</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="text" class="form-control" id="validationDefault01"
-                                                placeholder="Nombre" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault02"
-                                            placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                            required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                            required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05"
-                                            placeholder="Parentesco" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04"
-                                            placeholder="Direccion" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Parentesco" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Parentesco" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Parentesco" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required></td>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="Parentesco" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="container"><br><strong>DESCRIPCION DE LA PRODUCCION</strong><br><br></div>
-                            <div class="container">
-                                <div class="form-row">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <label>DECIDE LA PRODUCCIÓN QUE REALIZA</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline1" name="customRadioInline1"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline1">Si</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline2" name="customRadioInline1"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline2">No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="form-row">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <label>DECIDE LAS VÍAS DE COMERCIALIZACIÓN</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline3" name="customRadioInline2"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline3">Si</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline4" name="customRadioInline2"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline4">No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="form-row">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <label>ADMINISTRA LOS RECURSOS DE PRODUCCIÓN</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline5" name="customRadioInline3"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline5">Si</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline6" name="customRadioInline3"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline6">No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="form-row">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <label>TIPO DE PRODUCCIÓN VEGETAL</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline7" name="customRadioInline4"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline7">Invierno</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline8" name="customRadioInline4"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline8">Primavera</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline9" name="customRadioInline4"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline9">Verano</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline10" name="customRadioInline4"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline10">Otoño</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="form-row">
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <label>TIPO DE PRODUCCIÓN ANIMAL</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline11" name="customRadioInline5"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline11">Invierno</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline12" name="customRadioInline5"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline12">Primavera</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline13" name="customRadioInline5"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline13">Verano</label>
-                                    </div>
-                                    <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="customRadioInline14" name="customRadioInline5"
-                                            class="custom-control-input">
-                                        <label class="custom-control-label" for="customRadioInline14">Otoño</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <br>
-                                <div class="form-row">
-                                    <label for="validationDefault05"><strong>DESCRIPCIÓN DE PRINCIPAL
-                                            PRODUCCION</strong></label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="15"
-                                        cols="100"></textarea>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <br>
-                                EN CASO DE DDJJ PARA SELLO “PRODUCIDO POR LA AGRICULTURA FAMILIAR, CAMPESINA E
-                                INDÍGENA”<br>
-                                *No completar en caso de no corresponder<br>
-                            </div>
-                            <div class="container"><br><strong>PRODUCTOS PRIMARIOS O VALOR AGREGADO</strong><br><br>
-                            </div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Tipo</th>
-                                        <th>Productos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Valor Agregado</option>
-                                                <option>Produccion Primaria</option>
-                                            </select></td>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Hortalizas</option>
-                                                <option>Frutas</option>
-                                                <option>Carnes</option>
-                                                <option>Pescado</option>
-                                                <option>Apicultura</option>
-                                                <option>No Comestibles</option>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Valor Agregado</option>
-                                                <option>Produccion Primaria</option>
-                                            </select></td>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Hortalizas</option>
-                                                <option>Frutas</option>
-                                                <option>Carnes</option>
-                                                <option>Pescado</option>
-                                                <option>Apicultura</option>
-                                                <option>No Comestibles</option>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Valor Agregado</option>
-                                                <option>Produccion Primaria</option>
-                                            </select></td>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Hortalizas</option>
-                                                <option>Frutas</option>
-                                                <option>Carnes</option>
-                                                <option>Pescado</option>
-                                                <option>Apicultura</option>
-                                                <option>No Comestibles</option>
-                                            </select></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="container"><br><strong>PUNTO DE VENTA</strong><br><br></div>
-                            <div class="form-row">
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault01">Descripcion del Punto de Venta</label>
-                                    <input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Descripcion" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault02">Direccion</label>
-                                    <input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Direccion" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault03">Localidad</label>
-                                    <input type="text" class="form-control" id="validationDefault03"
-                                        placeholder="Localidad" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault04">Latitud</label>
-                                    <input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Latitud" required>
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label for="validationDefault04">Longitud</label>
-                                    <input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Longitud" required>
-                                </div>
-                            </div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Tipo</th>
-                                        <th>Productos Ofertados</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Valor Agregado</option>
-                                                <option>Produccion Primaria</option>
-                                            </select></td>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Hortalizas</option>
-                                                <option>Frutas</option>
-                                                <option>Carnes</option>
-                                                <option>Pescado</option>
-                                                <option>Apicultura</option>
-                                                <option>No Comestibles</option>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Valor Agregado</option>
-                                                <option>Produccion Primaria</option>
-                                            </select></td>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Hortalizas</option>
-                                                <option>Frutas</option>
-                                                <option>Carnes</option>
-                                                <option>Pescado</option>
-                                                <option>Apicultura</option>
-                                                <option>No Comestibles</option>
-                                            </select></td>
-                                    </tr>
-                                    <tr>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Valor Agregado</option>
-                                                <option>Produccion Primaria</option>
-                                            </select></td>
-                                        <td><select id="inputState" class="form-control">
-                                                <option selected>Seleccione</option>
-                                                <option>Hortalizas</option>
-                                                <option>Frutas</option>
-                                                <option>Carnes</option>
-                                                <option>Pescado</option>
-                                                <option>Apicultura</option>
-                                                <option>No Comestibles</option>
-                                            </select></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="form-group">
-                                <label for="formGroupExampleInput"><strong>Fecha de Firma</strong></label>
-                                <input type="date" class="form-control" id="formGroupExampleInput"
-                                    placeholder="Example input">
-                            </div>
-                        </div>
+                            <button class="btn btn-primary">Guardar</button>
+                        </form>
                     </div>
                 </div>
             </div>
+
+
+
+
+
+
+
             <div class="card">
                 <div class="card-header" id="headingTwo">
                     <h5 class="mb-0">
@@ -550,7 +679,8 @@
                                 <input type="date" class="form-control" id="formGroupExampleInput"
                                     placeholder="Example input">
                             </div>
-                            <div class="container"><br><strong>INFORMACION DE RESPONSABLE DE LA ORGANIZACION/COMUINDAD O GRUPO DE HECHO</strong><br><br></div>
+                            <div class="container"><br><strong>INFORMACION DE RESPONSABLE DE LA ORGANIZACION/COMUINDAD O
+                                    GRUPO DE HECHO</strong><br><br></div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
                                     <label for="validationDefault01">Nombre</label>
@@ -608,7 +738,8 @@
                                         placeholder="Example input">
                                 </div>
                             </div>
-                            <div class="container"><br><strong>INFORMACION DE LA ORGANIZACION/COMUNIDAD O GRUPO DE HECHO</strong><br><br></div>
+                            <div class="container"><br><strong>INFORMACION DE LA ORGANIZACION/COMUNIDAD O GRUPO DE
+                                    HECHO</strong><br><br></div>
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
                                     <label for="validationDefault04">Tipo de Organizacion</label>
@@ -622,8 +753,8 @@
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="validationDefault05">CUIT</label>
-                                    <input type="text" class="form-control" id="validationDefault05"
-                                        placeholder="CUIT" required>
+                                    <input type="text" class="form-control" id="validationDefault05" placeholder="CUIT"
+                                        required>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="validationDefault04">Direccion</label>
@@ -649,7 +780,7 @@
                                     <label for="validationDefault05">Longitud</label>
                                     <input type="text" class="form-control" id="validationDefault05"
                                         placeholder="Longitud" required>
-                                </div>                               
+                                </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="validationDefault05">Telefono Fijo</label>
                                     <input type="text" class="form-control" id="validationDefault05"
@@ -673,7 +804,7 @@
                                         <th>Nombre</th>
                                         <th>Apellido</th>
                                         <th>DNI</th>
-                                        <th>RENAF</th>                                        
+                                        <th>RENAF</th>
                                         <th>Direccion</th>
                                     </tr>
                                 </thead>
@@ -682,61 +813,61 @@
                                         <td><input type="text" class="form-control" id="validationDefault01"
                                                 placeholder="Nombre" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault02"
-                                            placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                            required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                            required></td>                                        
+                                                placeholder="Apellido" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault04"
-                                            placeholder="Direccion" required></td>
+                                                placeholder="DNI" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault05"
+                                                placeholder="RENAF" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault04"
+                                                placeholder="Direccion" required></td>
                                     </tr>
                                     <tr>
                                         <td><input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required></td>
+                                                placeholder="Nombre" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required></td>                                        
+                                                placeholder="Apellido" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required></td>
+                                                placeholder="DNI" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault05"
+                                                placeholder="RENAF" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault04"
+                                                placeholder="Direccion" required></td>
                                     </tr>
                                     <tr>
                                         <td><input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required></td>
+                                                placeholder="Nombre" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required></td>                                       
+                                                placeholder="Apellido" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required></td>
+                                                placeholder="DNI" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault05"
+                                                placeholder="RENAF" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault04"
+                                                placeholder="Direccion" required></td>
                                     </tr>
                                     <tr>
                                         <td><input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required></td>
+                                                placeholder="Nombre" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required></td>                                        
+                                                placeholder="Apellido" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required></td>
+                                                placeholder="DNI" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault05"
+                                                placeholder="RENAF" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault04"
+                                                placeholder="Direccion" required></td>
                                     </tr>
                                     <tr>
                                         <td><input type="text" class="form-control" id="validationDefault01"
-                                        placeholder="Nombre" required></td>
+                                                placeholder="Nombre" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault02"
-                                        placeholder="Apellido" required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault04" placeholder="DNI"
-                                        required></td>
-                                        <td><input type="text" class="form-control" id="validationDefault05" placeholder="RENAF"
-                                        required></td>                                        
+                                                placeholder="Apellido" required></td>
                                         <td><input type="text" class="form-control" id="validationDefault04"
-                                        placeholder="Direccion" required></td>
+                                                placeholder="DNI" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault05"
+                                                placeholder="RENAF" required></td>
+                                        <td><input type="text" class="form-control" id="validationDefault04"
+                                                placeholder="Direccion" required></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1016,6 +1147,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 </body>
