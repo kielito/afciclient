@@ -19,6 +19,9 @@ import { DeclaracionAbmComponent } from './components/declaracion/declaracion-ab
 import { DeclaracionListarComponent } from './components/declaracion/declaracion-listar/declaracion-listar.component';
 import { InformeAbmComponent } from './components/informe/informe-abm/informe-abm.component';
 import { InformeListarComponent } from './components/informe/informe-listar/informe-listar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatTableModule } from '@angular/material/table';  
 
 @NgModule({ //Clase
   declarations: [
@@ -34,7 +37,7 @@ import { InformeListarComponent } from './components/informe/informe-listar/info
     BrowserModule,
     AppRoutingModule,
     HttpClientModule, //Clase importada
-    FormsModule
+    FormsModule, BrowserAnimationsModule, MatTableModule
   ],
   providers: [
     UsuariosService,

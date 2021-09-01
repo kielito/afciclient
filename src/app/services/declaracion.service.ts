@@ -6,8 +6,8 @@ import { Router } from '@angular/router';
 	providedIn: 'root'
 })
 export class DeclaracionService {
-	//API_URI = 'http://localhost:3000/declaracion'; //variable local a la clase con la ruta
-	API_URI = 'https://afcisellosserver.herokuapp.com/declaracion';
+	API_URI = 'http://localhost:3000/declaracion'; //variable local a la clase con la ruta
+	//API_URI = 'https://afcisellosserver.herokuapp.com/declaracion';
 	//logued$: EventEmitter<string> = new EventEmitter<string>();
 	constructor(private http: HttpClient, private router: Router) { }
 
